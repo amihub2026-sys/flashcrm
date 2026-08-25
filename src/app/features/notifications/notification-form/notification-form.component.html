@@ -1,0 +1,897 @@
+<section class="notification-form-page">
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header class="notification-form-header">
+
+    <span class="eyebrow">
+      WHATSAPP NOTIFICATION
+    </span>
+
+    <h1>
+      New Notification
+    </h1>
+
+    <p>
+      Choose a message template, prepare your WhatsApp message,
+      select the customers and review the recipients before sending.
+    </p>
+
+  </header>
+
+
+  <!-- =====================================================
+       STEP 01 - MESSAGE TEMPLATE
+  ====================================================== -->
+
+  <section class="notification-card">
+
+    <div class="section-head">
+
+      <div class="section-title-wrap">
+
+        <span class="step-number">
+          01
+        </span>
+
+        <div>
+
+          <h2>
+            Message Template
+          </h2>
+
+          <p>
+            Choose the type of WhatsApp notification you want to send.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="template-area">
+
+      <div class="form-field">
+
+        <label for="template">
+          Select Template
+        </label>
+
+        <select
+          id="template"
+          [(ngModel)]="template"
+          (ngModelChange)="selectTemplate()"
+        >
+
+          <option value="custom">
+            Custom Message
+          </option>
+
+          <option value="amc">
+            AMC Service Reminder
+          </option>
+
+          <option value="ewc">
+            EWC Reminder
+          </option>
+
+          <option value="service">
+            Service Reminder
+          </option>
+
+          <option value="offer">
+            Service Offer
+          </option>
+
+        </select>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       STEP 02 - WHATSAPP MESSAGE
+  ====================================================== -->
+
+  <section class="notification-card">
+
+    <div class="section-head">
+
+      <div class="section-title-wrap">
+
+        <span class="step-number">
+          02
+        </span>
+
+        <div>
+
+          <h2>
+            WhatsApp Message
+          </h2>
+
+          <p>
+            Write the message and optionally attach an image.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="message-area">
+
+      <!-- MESSAGE LEFT -->
+
+      <div class="message-editor">
+
+        <div class="form-field">
+
+          <label for="message">
+            Message
+          </label>
+
+          <textarea
+            id="message"
+            rows="7"
+            [(ngModel)]="message"
+            placeholder="Enter notification message"
+          ></textarea>
+
+          <small class="message-hint">
+            Use {{ '{{customerName}}' }} to personalize the customer name.
+          </small>
+
+        </div>
+
+
+        <!-- =================================================
+             IMAGE UPLOAD
+        ================================================== -->
+
+        <div class="image-attachment">
+
+          <div class="image-attachment-label">
+            Image Attachment
+          </div>
+
+          <div class="image-attachment-description">
+            Add an optional JPG, PNG or WEBP image to this WhatsApp notification.
+          </div>
+
+
+          <!-- NO IMAGE -->
+
+          @if (!imagePreview) {
+
+            <label
+              class="image-upload-box"
+              for="notificationImage"
+            >
+
+              <input
+                id="notificationImage"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                (change)="onImageSelected($event)"
+              />
+
+
+              <div class="image-upload-content">
+
+                <div class="image-upload-icon">
+                  📷
+                </div>
+
+                <div class="image-upload-text">
+
+                  <strong class="image-upload-title">
+                    Upload Image
+                  </strong>
+
+                  <span class="image-upload-subtitle">
+                    Click here to choose an image
+                  </span>
+
+                  <span class="image-upload-formats">
+                    JPG, PNG or WEBP • Maximum 5 MB
+                  </span>
+
+                </div>
+
+              </div>
+
+            </label>
+
+          }
+
+
+          <!-- IMAGE SELECTED -->
+
+          @if (imagePreview) {
+
+            <div class="image-preview-box">
+
+              <img
+                [src]="imagePreview"
+                alt="Selected notification image"
+              />
+
+
+              <div class="image-preview-info">
+
+                <strong>
+                  Image attached
+                </strong>
+
+                <span>
+                  {{ selectedImage?.name }}
+                </span>
+
+                <small>
+                  This image will be included with the notification.
+                </small>
+
+              </div>
+
+
+              <div class="image-preview-actions">
+
+                <label
+                  class="change-image-btn"
+                  for="notificationImageChange"
+                >
+                  Change
+                </label>
+
+                <button
+                  type="button"
+                  class="image-remove-btn"
+                  (click)="removeImage()"
+                >
+                  Remove
+                </button>
+
+              </div>
+
+
+              <input
+                id="notificationImageChange"
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                (change)="onImageSelected($event)"
+                hidden
+              />
+
+            </div>
+
+          }
+
+        </div>
+
+      </div>
+
+
+      <!-- MESSAGE PREVIEW RIGHT -->
+
+      <div class="message-preview">
+
+        <span class="preview-label">
+          MESSAGE PREVIEW
+        </span>
+
+
+        <div class="whatsapp-preview">
+
+          <strong>
+            AC Service Center
+          </strong>
+
+
+          @if (imagePreview) {
+
+            <img
+              class="whatsapp-image-preview"
+              [src]="imagePreview"
+              alt="WhatsApp notification image"
+            />
+
+          }
+
+
+          <p>
+            {{ message.replace('{{customerName}}', 'Rajesh Kumar') }}
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       STEP 03 - TARGET AUDIENCE
+  ====================================================== -->
+
+  <section class="notification-card">
+
+    <div class="section-head">
+
+      <div class="section-title-wrap">
+
+        <span class="step-number">
+          03
+        </span>
+
+        <div>
+
+          <h2>
+            Target Audience
+          </h2>
+
+          <p>
+            Choose which customers should receive this notification.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="target-audience-area">
+
+      <div class="form-field">
+
+        <label for="audience">
+          Select Customer Group
+        </label>
+
+        <select
+          id="audience"
+          [ngModel]="audience()"
+          (ngModelChange)="selectAudience($event)"
+        >
+
+          <option value="all">
+            All Customers
+          </option>
+
+          <option value="amc">
+            AMC Customers
+          </option>
+
+          <option value="ewc">
+            EWC Customers
+          </option>
+
+          <option value="selected">
+            Selected Customers
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="audience-info">
+
+        @switch (audience()) {
+
+          @case ('all') {
+
+            <div class="audience-info-icon">◎</div>
+
+            <div>
+              <strong>All Customers</strong>
+              <span>
+                All registered customers with WhatsApp will be considered.
+              </span>
+            </div>
+
+          }
+
+          @case ('amc') {
+
+            <div class="audience-info-icon">↻</div>
+
+            <div>
+              <strong>AMC Customers</strong>
+              <span>
+                Only customers with an active AMC plan will be considered.
+              </span>
+            </div>
+
+          }
+
+          @case ('ewc') {
+
+            <div class="audience-info-icon">◇</div>
+
+            <div>
+              <strong>EWC Customers</strong>
+              <span>
+                Only customers covered under EWC will be considered.
+              </span>
+            </div>
+
+          }
+
+          @case ('selected') {
+
+            <div class="audience-info-icon">✓</div>
+
+            <div>
+              <strong>Selected Customers</strong>
+              <span>
+                Manually select the customers who should receive this notification.
+              </span>
+            </div>
+
+          }
+
+        }
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       SELECTED CUSTOMERS
+  ====================================================== -->
+
+  @if (audience() === 'selected') {
+
+    <section class="notification-card">
+
+      <div class="section-head">
+
+        <div class="section-title-wrap">
+
+          <span class="step-number">
+            03A
+          </span>
+
+          <div>
+
+            <h2>
+              Select Customers
+            </h2>
+
+            <p>
+              Search and manually choose individual customers.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="customer-selector">
+
+        <div class="customer-search">
+
+          <span>
+            ⌕
+          </span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            placeholder="Search customer name or mobile number"
+          />
+
+        </div>
+
+
+        <div class="customer-list">
+
+          @for (
+            customer of filteredCustomers();
+            track customer.id
+          ) {
+
+            <button
+              type="button"
+              class="customer-row"
+              [class.selected]="isCustomerSelected(customer.id)"
+              (click)="toggleCustomer(customer.id)"
+            >
+
+              <div class="customer-check">
+
+                @if (
+                  isCustomerSelected(customer.id)
+                ) {
+                  ✓
+                }
+
+              </div>
+
+
+              <div class="customer-details">
+
+                <strong>
+                  {{ customer.name }}
+                </strong>
+
+                <span>
+                  +91 {{ customer.phone }}
+                </span>
+
+              </div>
+
+
+              <div class="customer-tags">
+
+                @if (customer.hasAmc) {
+
+                  <span class="tag">
+                    AMC
+                  </span>
+
+                }
+
+                @if (customer.hasEwc) {
+
+                  <span class="tag ewc">
+                    EWC
+                  </span>
+
+                }
+
+                @if (customer.whatsappAvailable) {
+
+                  <span class="wa-status available">
+                    WhatsApp
+                  </span>
+
+                } @else {
+
+                  <span class="wa-status unavailable">
+                    No WhatsApp
+                  </span>
+
+                }
+
+              </div>
+
+            </button>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+  }
+
+
+  <!-- =====================================================
+       STEP 04 - RECIPIENT PREVIEW
+  ====================================================== -->
+
+  <section class="notification-card">
+
+    <div class="section-head">
+
+      <div class="section-title-wrap">
+
+        <span class="step-number">
+          04
+        </span>
+
+        <div>
+
+          <h2>
+            Recipient Preview
+          </h2>
+
+          <p>
+            Check how many customers will receive this notification.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- TARGET -->
+
+    <div class="recipient-audience-line">
+
+      <span class="recipient-audience-label">
+        TARGET AUDIENCE
+      </span>
+
+      <strong>
+        {{ getAudienceName() }}
+      </strong>
+
+    </div>
+
+
+    <!-- COUNTERS -->
+
+    <div class="recipient-summary">
+
+      <div class="recipient-stat">
+
+        <span>
+          TOTAL CUSTOMERS
+        </span>
+
+        <strong>
+          {{ recipients().length }}
+        </strong>
+
+      </div>
+
+
+      <div class="recipient-stat good">
+
+        <span>
+          WHATSAPP READY
+        </span>
+
+        <strong>
+          {{ whatsappRecipients().length }}
+        </strong>
+
+      </div>
+
+
+      <div class="recipient-stat warning">
+
+        <span>
+          WITHOUT WHATSAPP
+        </span>
+
+        <strong>
+          {{ unavailableRecipients().length }}
+        </strong>
+
+      </div>
+
+
+      <div class="recipient-stat send-count">
+
+        <span>
+          MESSAGES TO SEND
+        </span>
+
+        <strong>
+          {{ whatsappRecipients().length }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- SAMPLE RECIPIENTS -->
+
+    @if (recipients().length > 0) {
+
+      <div class="recipient-preview-head">
+
+        <div>
+
+          <strong>
+            Sample Recipients
+          </strong>
+
+          <span>
+            Showing a maximum of 4 customers here for preview.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="recipient-list">
+
+        @for (
+          customer of recipients().slice(0, 4);
+          track customer.id
+        ) {
+
+          <div class="recipient-row">
+
+            <div class="recipient-avatar">
+              {{ customer.name.charAt(0) }}
+            </div>
+
+
+            <div class="recipient-copy">
+
+              <strong>
+                {{ customer.name }}
+              </strong>
+
+              <span>
+                +91 {{ customer.phone }}
+              </span>
+
+            </div>
+
+
+            @if (customer.whatsappAvailable) {
+
+              <span class="recipient-status available">
+                Ready
+              </span>
+
+            } @else {
+
+              <span class="recipient-status unavailable">
+                Skipped
+              </span>
+
+            }
+
+          </div>
+
+        }
+
+      </div>
+
+
+      <!-- LARGE LIST EXPLANATION -->
+
+      @if (recipients().length > 4) {
+
+        <div class="recipient-more">
+
+          <strong>
+            Showing 4 of {{ recipients().length }} recipients
+          </strong>
+
+          <span>
+            Don't worry — this does not mean only 4 customers will receive the message.
+            The number above represents the complete audience. When the WhatsApp API
+            is connected, the system will process the full eligible customer list.
+          </span>
+
+        </div>
+
+      }
+
+    } @else {
+
+      <div class="empty-recipients">
+
+        <strong>
+          No customers selected
+        </strong>
+
+        <span>
+          Choose another audience or select customers manually.
+        </span>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- =====================================================
+       STEP 05 - SEND
+  ====================================================== -->
+
+  <section class="send-bar">
+
+    <div>
+
+      <span>
+        READY TO SEND
+      </span>
+
+      <strong>
+        {{ whatsappRecipients().length }}
+        WhatsApp recipient(s)
+      </strong>
+
+      <small>
+        Customers without WhatsApp will not be included.
+      </small>
+
+    </div>
+
+
+    <div class="send-actions">
+
+      <button
+        type="button"
+        class="btn secondary"
+        (click)="reset()"
+      >
+        Reset
+      </button>
+
+
+      <button
+        type="button"
+        class="btn primary"
+        [disabled]="
+          whatsappRecipients().length === 0 ||
+          !message.trim()
+        "
+        (click)="sendDemoNotification()"
+      >
+        Send Notification
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       SUCCESS
+  ====================================================== -->
+
+  @if (demoSent) {
+
+    <section class="demo-success">
+
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <span class="success-label">
+        DEMO NOTIFICATION READY
+      </span>
+
+      <h2>
+        Notification prepared successfully
+      </h2>
+
+      <p>
+        {{ whatsappRecipients().length }}
+        WhatsApp customer(s) are ready for delivery.
+      </p>
+
+
+      <div class="api-note">
+
+        <strong>
+          Demo Mode
+        </strong>
+
+        <span>
+          No bulk WhatsApp message was actually sent.
+          When the WhatsApp Business API is connected,
+          this action will send the notification through the backend.
+        </span>
+
+      </div>
+
+    </section>
+
+  }
+
+</section>
