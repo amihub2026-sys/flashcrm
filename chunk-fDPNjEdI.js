@@ -1,0 +1,1 @@
+var n=[{path:``,loadComponent:()=>import(`./chunk-UX7sfIX2.js`).then(o=>o.JobSchedulingComponent)}];export{n as JOB_SCHEDULING_ROUTES};

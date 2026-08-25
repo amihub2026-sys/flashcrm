@@ -1,0 +1,1 @@
+var t=[{path:``,loadComponent:()=>import(`./chunk-Dtd4V94Q.js`).then(o=>o.PartsHistoryComponent)}];export{t as PARTS_HISTORY_ROUTES};

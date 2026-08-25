@@ -1,0 +1,1 @@
+var n=[{path:``,loadComponent:()=>import(`./chunk-CPgof2202.js`).then(o=>o.RemindersComponent)}];export{n as REMINDERS_ROUTES};

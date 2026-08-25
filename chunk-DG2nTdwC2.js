@@ -1,0 +1,1 @@
+var t=[{path:``,loadComponent:()=>import(`./chunk-BqIMJngN.js`).then(o=>o.AmcComponent)}];export{t as AMC_ROUTES};

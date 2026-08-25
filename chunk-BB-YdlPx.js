@@ -1,0 +1,1 @@
+var n=[{path:``,loadComponent:()=>import(`./chunk-C6T8spcS2.js`).then(o=>o.InventoryComponent)}];export{n as INVENTORY_ROUTES};

@@ -1,0 +1,1 @@
+var o=[{path:``,loadComponent:()=>import(`./chunk-CavURjvA2.js`).then(n=>n.TechniciansComponent)}];export{o as TECHNICIANS_ROUTES};

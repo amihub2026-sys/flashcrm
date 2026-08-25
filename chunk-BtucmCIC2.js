@@ -1,0 +1,1 @@
+var t=[{path:``,loadComponent:()=>import(`./chunk-CMPFipca.js`).then(o=>o.CustomersComponent)},{path:`new`,loadComponent:()=>import(`./chunk-CJni6Rxx.js`).then(o=>o.CustomerFormComponent)},{path:`:id`,loadComponent:()=>import(`./chunk-DHNDOFXg2.js`).then(o=>o.CustomerProfileComponent)}];export{t as CUSTOMERS_ROUTES};
