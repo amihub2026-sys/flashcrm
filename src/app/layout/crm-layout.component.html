@@ -1,0 +1,20 @@
+<div class="app-shell">
+  <aside class="sidebar" [class.open]="menuOpen()">
+    <div class="brand"><div class="brand-icon">AC</div><div><strong>ServiceFlow</strong><span>AC Service CRM</span></div></div>
+    <nav>
+      @for (item of nav.items; track item.route) {
+        @if (item.section) { <p class="section-label">{{item.section}}</p> }
+        <a [routerLink]="item.route" routerLinkActive="active" (click)="closeMenu()"><i>{{item.icon}}</i><span>{{item.label}}</span></a>
+      }
+    </nav>
+    <div class="sidebar-foot"><div class="avatar">A</div><div><strong>Administrator</strong><span>Full access</span></div></div>
+  </aside>
+  @if (menuOpen()) { <button class="backdrop" (click)="closeMenu()" aria-label="Close menu"></button> }
+  <section class="main-area">
+    <header class="topbar">
+      <div class="top-left"><button class="menu-btn" (click)="toggleMenu()">☰</button><div><strong>AC Service Center</strong><span>Customer & service management</span></div></div>
+      <div class="top-actions"><button class="icon-btn" title="Reminders">🔔<b>5</b></button><div class="today"><span>TODAY</span><strong>24 AUG 2026</strong></div></div>
+    </header>
+    <main class="page-content"><router-outlet /></main>
+  </section>
+</div>

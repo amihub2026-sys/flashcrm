@@ -1,0 +1,559 @@
+@if (customer(); as customer) {
+
+  <section class="customer-profile-page">
+
+    <!-- HEADER -->
+
+    <div class="profile-header">
+
+      <div class="profile-heading">
+
+        <button
+          type="button"
+          class="back-btn"
+          (click)="goBack()"
+        >
+          ←
+        </button>
+
+        <div>
+
+          <span class="eyebrow">
+            CUSTOMER PROFILE
+          </span>
+
+          <h1>
+            {{ customer.name }}
+          </h1>
+
+          <p>
+            {{ customer.customerCode }}
+            ·
+            {{ customer.area }},
+            {{ customer.city }}
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="profile-actions">
+
+        <button
+          type="button"
+          class="action-btn whatsapp"
+          [disabled]="!customer.whatsappAvailable"
+          (click)="openWhatsApp()"
+        >
+          WhatsApp
+        </button>
+
+        <button
+          type="button"
+          class="action-btn"
+          (click)="callCustomer()"
+        >
+          Call
+        </button>
+
+        <button
+          type="button"
+          class="action-btn primary"
+          (click)="startNewService()"
+        >
+          + New Service
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- CUSTOMER OVERVIEW -->
+
+    <section class="profile-card">
+
+      <div class="card-header">
+
+        <div>
+          <span>CUSTOMER</span>
+          <strong>Customer Details</strong>
+        </div>
+
+        <span class="status-badge">
+          {{ customer.status }}
+        </span>
+
+      </div>
+
+
+      <div class="info-grid">
+
+        <div class="info-item">
+          <span>Mobile Number</span>
+          <strong>
+            +91 {{ customer.primaryPhone }}
+          </strong>
+        </div>
+
+        <div class="info-item">
+          <span>WhatsApp</span>
+          <strong>
+            {{ customer.whatsappAvailable ? 'Available' : 'Not Available' }}
+          </strong>
+        </div>
+
+        <div class="info-item">
+          <span>Preferred Contact</span>
+          <strong>
+            {{ customer.preferredContact }}
+          </strong>
+        </div>
+
+        <div class="info-item">
+          <span>AC Units</span>
+          <strong>
+            {{ activeAcUnits().length }}
+          </strong>
+        </div>
+
+        <div class="info-item wide">
+          <span>Address</span>
+          <strong>
+            {{ customer.address }}
+          </strong>
+        </div>
+
+        <div class="info-item">
+          <span>Area</span>
+          <strong>
+            {{ customer.area }}
+          </strong>
+        </div>
+
+        <div class="info-item">
+          <span>City</span>
+          <strong>
+            {{ customer.city }}
+          </strong>
+        </div>
+
+        <div class="info-item">
+          <span>Pincode</span>
+          <strong>
+            {{ customer.pincode }}
+          </strong>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- NEXT ACTION -->
+
+    <section class="profile-card highlight-card">
+
+      <div class="card-header">
+
+        <div>
+          <span>FOLLOW-UP</span>
+          <strong>Next Action</strong>
+        </div>
+
+      </div>
+
+
+      <div class="next-action-grid">
+
+        <div>
+
+          <span>Next Follow-up</span>
+
+          <strong>
+            {{ customer.nextActionLabel || 'No follow-up scheduled' }}
+          </strong>
+
+          <small>
+            {{ customer.nextActionDate || 'No date selected' }}
+          </small>
+
+        </div>
+
+
+        <div class="followup-actions">
+
+          <button
+            type="button"
+            class="mini-action whatsapp"
+            [disabled]="!customer.whatsappAvailable"
+            (click)="openWhatsApp()"
+          >
+            WhatsApp
+          </button>
+
+          <button
+            type="button"
+            class="mini-action"
+            (click)="callCustomer()"
+          >
+            Call
+          </button>
+
+          <button
+            type="button"
+            class="mini-action"
+          >
+            Reschedule
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- AC UNITS -->
+
+    <section class="profile-card">
+
+      <div class="card-header">
+
+        <div>
+          <span>AC UNITS</span>
+          <strong>Customer ACs</strong>
+        </div>
+
+        <button
+          type="button"
+          class="small-btn"
+          (click)="addAc()"
+        >
+          + Add AC
+        </button>
+
+      </div>
+
+
+      @if (acUnits().length > 0) {
+
+        <div class="ac-card-list">
+
+          @for (ac of acUnits(); track ac.id) {
+
+            <article class="ac-card">
+
+              <div class="ac-card-top">
+
+                <div>
+
+                  <div class="ac-title-row">
+
+                    <strong>
+                      {{ ac.brand }}
+                    </strong>
+
+                    @if (ac.authorizedBrand) {
+
+                      <span class="authorized-badge">
+                        Authorized
+                      </span>
+
+                    }
+
+                    <span
+                      class="ac-status"
+                      [class.inactive]="ac.status !== 'Active'"
+                    >
+                      {{ ac.status }}
+                    </span>
+
+                  </div>
+
+                  <p>
+                    {{ getAcDisplayName(
+                      ac.brand,
+                      ac.type,
+                      ac.tonnage
+                    ) }}
+                  </p>
+
+                </div>
+
+
+                <div class="ac-card-actions">
+
+                  <button
+                    type="button"
+                    class="mini-action"
+                    (click)="viewAc(ac.id)"
+                  >
+                    View AC
+                  </button>
+
+                  <button
+                    type="button"
+                    class="mini-action primary-mini"
+                    (click)="startServiceForAc(ac.id)"
+                  >
+                    + New Service
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <div class="ac-details-grid">
+
+                <div>
+                  <span>Indoor Model</span>
+                  <strong>
+                    {{ displayValue(ac.indoorModelNumber) }}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Indoor Serial</span>
+                  <strong>
+                    {{ displayValue(ac.indoorSerialNumber) }}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Outdoor Model</span>
+                  <strong>
+                    {{ displayValue(ac.outdoorModelNumber) }}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Outdoor Serial</span>
+                  <strong>
+                    {{ displayValue(ac.outdoorSerialNumber) }}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Installation Date</span>
+                  <strong>
+                    {{ displayValue(ac.installationDate) }}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Warranty End</span>
+                  <strong>
+                    {{ displayValue(ac.warrantyEndDate) }}
+                  </strong>
+                </div>
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      } @else {
+
+        <div class="empty-module">
+
+          <strong>
+            No AC units linked
+          </strong>
+
+          <span>
+            Add the customer's first AC unit to begin service tracking.
+          </span>
+
+        </div>
+
+      }
+
+    </section>
+
+
+    <!-- SERVICE HISTORY -->
+
+    <section class="profile-card">
+
+      <div class="card-header">
+
+        <div>
+          <span>SERVICE HISTORY</span>
+          <strong>Previous Service Records</strong>
+        </div>
+
+        <button
+          type="button"
+          class="small-btn"
+          (click)="startNewService()"
+        >
+          + New Service
+        </button>
+
+      </div>
+
+
+      <div class="empty-module">
+
+        <strong>
+          No detailed service history loaded yet
+        </strong>
+
+        <span>
+          Every future service report, technician note and part replacement
+          will appear here.
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- AMC / EWC -->
+
+    <section class="profile-two-column">
+
+      <section class="profile-card">
+
+        <div class="card-header">
+
+          <div>
+            <span>AMC</span>
+            <strong>Maintenance Plan</strong>
+          </div>
+
+        </div>
+
+        <div class="empty-module compact">
+
+          <strong>
+            AMC details
+          </strong>
+
+          <span>
+            Active plan, services used, services remaining and renewal
+            information will appear here.
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <section class="profile-card">
+
+        <div class="card-header">
+
+          <div>
+            <span>EWC</span>
+            <strong>Extended Warranty</strong>
+          </div>
+
+        </div>
+
+        <div class="empty-module compact">
+
+          <strong>
+            EWC details
+          </strong>
+
+          <span>
+            Coverage, expiry date and renewal status will appear here.
+          </span>
+
+        </div>
+
+      </section>
+
+    </section>
+
+
+    <!-- PARTS / PAYMENTS -->
+
+    <section class="profile-two-column">
+
+      <section class="profile-card">
+
+        <div class="card-header">
+
+          <div>
+            <span>PARTS HISTORY</span>
+            <strong>Replacement Records</strong>
+          </div>
+
+        </div>
+
+        <div class="empty-module compact">
+
+          <strong>
+            Parts replaced during services
+          </strong>
+
+          <span>
+            Part name, warranty, technician and internal service note
+            will appear here.
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <section class="profile-card">
+
+        <div class="card-header">
+
+          <div>
+            <span>PAYMENTS</span>
+            <strong>Billing Status</strong>
+          </div>
+
+        </div>
+
+        <div class="empty-module compact">
+
+          <strong>
+            Payment history
+          </strong>
+
+          <span>
+            Paid, partial and pending invoices will appear here.
+          </span>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </section>
+
+} @else {
+
+  <section class="customer-not-found">
+
+    <h2>
+      Customer not found
+    </h2>
+
+    <p>
+      This customer record is not available.
+    </p>
+
+    <button
+      type="button"
+      class="action-btn primary"
+      (click)="goBack()"
+    >
+      Back to Customers
+    </button>
+
+  </section>
+
+}

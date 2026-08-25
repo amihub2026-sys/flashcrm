@@ -1,0 +1,20 @@
+<app-page-header title="Dashboard" subtitle="Everything requiring attention today — customers, service reminders, technicians and collections.">
+  <button class="btn secondary">+ Quick Service</button><button class="btn primary">+ Add Customer</button>
+</app-page-header>
+<div class="stats-grid">
+  <app-stat-card icon="☎" label="TODAY'S FOLLOW-UPS" value="18" hint="5 overdue" />
+  <app-stat-card icon="❄" label="TODAY'S SERVICES" value="12" hint="8 confirmed" />
+  <app-stat-card icon="↻" label="AMC / EWC DUE" value="9" hint="Next 7 days" />
+  <app-stat-card icon="₹" label="PENDING PAYMENT" value="₹28,450" hint="11 invoices" />
+</div>
+<div class="dashboard-grid">
+  <section class="panel reminders"><div class="panel-head"><div><span>PRIORITY</span><h2>Today's customer follow-ups</h2></div><button>View all →</button></div>
+    @for (c of data.customers; track c.id) {
+      <div class="customer-line"><div class="initial">{{c.name.charAt(0)}}</div><div class="who"><strong>{{c.name}}</strong><span>{{c.primaryPhone}} · {{c.acCount}} AC unit(s)</span></div><div class="action"><span>{{c.nextActionLabel}}</span><small>{{c.nextActionDate}}</small></div><div class="line-buttons"><button class="wa">WhatsApp</button><button>Call</button></div></div>
+    }
+  </section>
+  <section class="panel tech"><div class="panel-head"><div><span>FIELD TEAM</span><h2>Technicians</h2></div></div>
+    @for (t of data.technicians; track t.id) { <div class="tech-line"><div class="initial">{{t.name.charAt(0)}}</div><div><strong>{{t.name}}</strong><span>{{t.skills.join(' · ')}}</span></div><b [class.busy]="t.availability==='Busy'">{{t.availability}}</b></div> }
+  </section>
+</div>
+<div class="lower-grid"><section class="panel"><div class="panel-head"><div><span>UPCOMING</span><h2>Next actions</h2></div></div><div class="timeline"><div><b>25 AUG</b><span>AMC Service — Rajesh Kumar</span></div><div><b>26 AUG</b><span>General Service — A1 Office Solutions</span></div><div><b>28 AUG</b><span>EWC Expiry — Suresh Babu</span></div></div></section><section class="panel"><div class="panel-head"><div><span>QUICK VIEW</span><h2>Operations</h2></div></div><div class="mini-grid"><div><strong>6</strong><span>Jobs in progress</span></div><div><strong>4</strong><span>Low stock parts</span></div><div><strong>3</strong><span>Revisits</span></div><div><strong>27</strong><span>Completed this week</span></div></div></section></div>

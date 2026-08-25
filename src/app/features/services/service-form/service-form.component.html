@@ -1,0 +1,651 @@
+<section class="service-form-page">
+
+  <!-- HEADER -->
+
+  <div class="service-header">
+
+    <div>
+
+      <span class="eyebrow">
+        SERVICE JOB
+      </span>
+
+      <h1>
+        New Service
+      </h1>
+
+      <p>
+        Record the customer complaint, assign technicians,
+        track work done, parts changed and next follow-up.
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="close-btn"
+      (click)="cancel()"
+    >
+      ✕
+    </button>
+
+  </div>
+
+
+  @if (customer(); as customer) {
+
+    <!-- CUSTOMER SUMMARY -->
+
+    <section class="summary-card">
+
+      <div>
+
+        <span>
+          CUSTOMER
+        </span>
+
+        <strong>
+          {{ customer.name }}
+        </strong>
+
+        <small>
+          +91 {{ customer.primaryPhone }}
+          ·
+          {{ customer.area }},
+          {{ customer.city }}
+        </small>
+
+      </div>
+
+    </section>
+
+
+    <form
+      class="service-card"
+      [formGroup]="serviceForm"
+      (ngSubmit)="saveService()"
+    >
+
+      <!-- =========================
+           AC SELECTION
+      ========================== -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            01
+          </span>
+
+          <div>
+            <h2>
+              Select AC
+            </h2>
+
+            <p>
+              Choose which AC unit this service belongs to.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+          <div class="form-field full">
+
+            <label for="acUnitId">
+              AC Unit
+              <span>*</span>
+            </label>
+
+            <select
+              id="acUnitId"
+              formControlName="acUnitId"
+            >
+
+              <option value="">
+                Select AC Unit
+              </option>
+
+              @for (
+                ac of customerAcUnits();
+                track ac.id
+              ) {
+
+                <option [value]="ac.id">
+                  {{ ac.brand }}
+                  ·
+                  {{ ac.type }}
+                  ·
+                  {{ ac.tonnage || 'Tonnage not set' }}
+                </option>
+
+              }
+
+            </select>
+
+
+            @if (
+              serviceForm.controls.acUnitId.touched &&
+              serviceForm.controls.acUnitId.invalid
+            ) {
+
+              <small class="error">
+                Please select the AC unit.
+              </small>
+
+            }
+
+          </div>
+
+
+          @if (selectedAc(); as ac) {
+
+            <div class="selected-ac-card full">
+
+              <div class="selected-ac-top">
+
+                <div>
+
+                  <span class="selected-label">
+                    SELECTED AC
+                  </span>
+
+                  <strong>
+                    {{ ac.brand }}
+                    ·
+                    {{ ac.type }}
+                    ·
+                    {{ ac.tonnage || 'Tonnage not set' }}
+                  </strong>
+
+                </div>
+
+                @if (ac.authorizedBrand) {
+
+                  <span class="authorized-badge">
+                    Authorized
+                  </span>
+
+                }
+
+              </div>
+
+
+              <div class="selected-ac-grid">
+
+                <div>
+                  <span>Indoor Model</span>
+                  <strong>
+                    {{ ac.indoorModelNumber || 'Not provided' }}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Indoor Serial</span>
+                  <strong>
+                    {{ ac.indoorSerialNumber || 'Not provided' }}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Outdoor Model</span>
+                  <strong>
+                    {{ ac.outdoorModelNumber || 'Not provided' }}
+                  </strong>
+                </div>
+
+                <div>
+                  <span>Outdoor Serial</span>
+                  <strong>
+                    {{ ac.outdoorSerialNumber || 'Not provided' }}
+                  </strong>
+                </div>
+
+              </div>
+
+            </div>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           SERVICE DETAILS
+      ========================== -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            02
+          </span>
+
+          <div>
+            <h2>
+              Service Details
+            </h2>
+
+            <p>
+              Enter the service type and customer complaint.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+          <div class="form-field">
+
+            <label for="serviceType">
+              Service Type
+              <span>*</span>
+            </label>
+
+            <select
+              id="serviceType"
+              formControlName="serviceType"
+            >
+
+              <option value="">
+                Select Service Type
+              </option>
+
+              <option value="General Service">
+                General Service
+              </option>
+
+              <option value="Repair">
+                Repair
+              </option>
+
+              <option value="Complaint">
+                Complaint
+              </option>
+
+              <option value="Gas Filling">
+                Gas Filling
+              </option>
+
+              <option value="Installation">
+                Installation
+              </option>
+
+              <option value="AMC Service">
+                AMC Service
+              </option>
+
+              <option value="EWC Service">
+                EWC Service
+              </option>
+
+              <option value="Inspection">
+                Inspection
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+
+            @if (
+              serviceForm.controls.serviceType.touched &&
+              serviceForm.controls.serviceType.invalid
+            ) {
+
+              <small class="error">
+                Please select the service type.
+              </small>
+
+            }
+
+          </div>
+
+
+          <div class="form-field">
+
+            <label for="status">
+              Service Status
+            </label>
+
+            <select
+              id="status"
+              formControlName="status"
+            >
+
+              <option value="Open">
+                Open
+              </option>
+
+              <option value="Scheduled">
+                Scheduled
+              </option>
+
+              <option value="In Progress">
+                In Progress
+              </option>
+
+              <option value="Completed">
+                Completed
+              </option>
+
+              <option value="Cancelled">
+                Cancelled
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-field full">
+
+            <label for="complaint">
+              Customer Complaint / Requirement
+              <span>*</span>
+            </label>
+
+            <textarea
+              id="complaint"
+              rows="4"
+              formControlName="complaint"
+              placeholder="Example: Cooling low, water leakage, AC not starting..."
+            ></textarea>
+
+
+            @if (
+              serviceForm.controls.complaint.touched &&
+              serviceForm.controls.complaint.invalid
+            ) {
+
+              <small class="error">
+                Please enter the customer complaint or service requirement.
+              </small>
+
+            }
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           TECHNICIANS
+      ========================== -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            03
+          </span>
+
+          <div>
+            <h2>
+              Technician Assignment
+            </h2>
+
+            <p>
+              One service can have one or multiple technicians.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="technician-grid">
+
+          @for (
+            technician of technicians;
+            track technician.id
+          ) {
+
+            <button
+              type="button"
+              class="technician-card"
+              [class.selected]="
+                isTechnicianSelected(technician.id)
+              "
+              (click)="
+                toggleTechnician(technician.id)
+              "
+            >
+
+              <div class="tech-avatar">
+                {{ technician.name.charAt(0) }}
+              </div>
+
+              <div class="tech-info">
+
+                <strong>
+                  {{ technician.name }}
+                </strong>
+
+                <span>
+                  {{ technician.skills.join(' · ') }}
+                </span>
+
+                <small
+                  [class.busy]="
+                    technician.availability === 'Busy'
+                  "
+                >
+                  {{ technician.availability }}
+                </small>
+
+              </div>
+
+              @if (
+                isTechnicianSelected(technician.id)
+              ) {
+
+                <span class="selected-check">
+                  ✓
+                </span>
+
+              }
+
+            </button>
+
+          }
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           WORK REPORT
+      ========================== -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            04
+          </span>
+
+          <div>
+            <h2>
+              Service Report
+            </h2>
+
+            <p>
+              Record what was done during this service visit.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+          <div class="form-field full">
+
+            <label for="workDone">
+              Work Done
+            </label>
+
+            <textarea
+              id="workDone"
+              rows="4"
+              formControlName="workDone"
+              placeholder="Example: Indoor coil cleaned, drain blockage cleared..."
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-field full">
+
+            <label for="partsChanged">
+              Parts Changed
+            </label>
+
+            <textarea
+              id="partsChanged"
+              rows="4"
+              formControlName="partsChanged"
+              placeholder="Example: Capacitor changed, PCB replaced..."
+            ></textarea>
+
+            <small class="field-hint">
+              We will later connect this to the structured Spare Parts module.
+            </small>
+
+          </div>
+
+
+          <div class="form-field full internal-note-field">
+
+            <label for="internalNote">
+              Internal Service Note
+            </label>
+
+            <textarea
+              id="internalNote"
+              rows="4"
+              formControlName="internalNote"
+              placeholder="Private note for service center staff only"
+            ></textarea>
+
+            <small class="field-hint">
+              This note is for internal staff reference and should not appear
+              in customer-facing messages or invoices.
+            </small>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           FOLLOW-UP
+      ========================== -->
+
+      <section class="form-section">
+
+        <div class="section-heading">
+
+          <span class="section-number">
+            05
+          </span>
+
+          <div>
+            <h2>
+              Next Follow-up
+            </h2>
+
+            <p>
+              Set when the CRM should remind the operator to contact this customer again.
+            </p>
+          </div>
+
+        </div>
+
+
+        <div class="form-grid">
+
+          <div class="form-field">
+
+            <label for="nextFollowUpDate">
+              Next Follow-up Date
+            </label>
+
+            <input
+              id="nextFollowUpDate"
+              type="date"
+              formControlName="nextFollowUpDate"
+            />
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ACTIONS -->
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="btn cancel"
+          (click)="cancel()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn primary"
+        >
+          Save Service
+          <span>✓</span>
+        </button>
+
+      </div>
+
+    </form>
+
+  } @else {
+
+    <section class="missing-customer-card">
+
+      <h2>
+        Customer not found
+      </h2>
+
+      <p>
+        Start the service from a valid customer profile.
+      </p>
+
+      <button
+        type="button"
+        class="btn primary"
+        (click)="cancel()"
+      >
+        Back
+      </button>
+
+    </section>
+
+  }
+
+</section>

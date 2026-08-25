@@ -1,0 +1,298 @@
+<app-page-header
+  title="Customer Management"
+  subtitle="Manage customers, AC units, plans, reminders, service history and communication from one place."
+>
+  <button class="btn secondary">
+    Import
+  </button>
+
+<button
+  type="button"
+  class="btn primary"
+  routerLink="/customers/new"
+>
+  + Add Customer
+</button>
+</app-page-header>
+
+
+<!-- CUSTOMER SUMMARY -->
+
+<section class="customer-summary">
+
+  <div class="summary-card">
+    <span>TOTAL CUSTOMERS</span>
+    <strong>1,248</strong>
+  </div>
+
+  <div class="summary-card">
+    <span>ACTIVE AMC</span>
+    <strong>286</strong>
+  </div>
+
+  <div class="summary-card">
+    <span>ACTIVE EWC</span>
+    <strong>94</strong>
+  </div>
+
+  <div class="summary-card">
+    <span>FOLLOW-UP TODAY</span>
+    <strong>18</strong>
+  </div>
+
+</section>
+
+
+<!-- CUSTOMER TABLE -->
+
+<section class="table-card">
+
+  <div class="filters">
+
+    <div class="search">
+      <span class="search-icon">⌕</span>
+
+      <input
+        type="text"
+        [ngModel]="searchQuery()"
+        (ngModelChange)="updateSearch($event)"
+        placeholder="Search customer name, phone or customer ID"
+        autocomplete="off"
+      />
+    </div>
+
+
+    <div class="filter-actions">
+
+      <button
+        type="button"
+        class="filter-btn"
+      >
+        All Customers
+        <span>▾</span>
+      </button>
+
+      <button
+        type="button"
+        class="filter-btn"
+      >
+        Next Action
+        <span>▾</span>
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>CUSTOMER</th>
+          <th>CONTACT</th>
+          <th>AC UNITS</th>
+          <th>NEXT ACTION</th>
+          <th>STATUS</th>
+          <th>QUICK ACTIONS</th>
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        @for (customer of customers(); track customer.id) {
+
+          <tr>
+
+            <!-- CUSTOMER -->
+
+            <td>
+
+              <div class="cust">
+
+                <div class="avatar">
+                  {{ customer.name.charAt(0) }}
+                </div>
+
+                <div class="customer-info">
+
+                  <strong>
+                    {{ customer.name }}
+                  </strong>
+
+                  <span>
+                    {{ customer.customerCode }}
+                    ·
+                    {{ customer.area }}
+                  </span>
+
+                </div>
+
+              </div>
+
+            </td>
+
+
+            <!-- CONTACT -->
+
+            <td>
+
+              <div class="contact-info">
+
+                <strong class="phone">
+                  {{ customer.primaryPhone }}
+                </strong>
+
+                @if (customer.whatsappAvailable) {
+
+                  <span class="sub whatsapp-available">
+                    WhatsApp available
+                  </span>
+
+                } @else {
+
+                  <span class="sub call-preferred">
+                    Call preferred
+                  </span>
+
+                }
+
+              </div>
+
+            </td>
+
+
+            <!-- AC COUNT -->
+
+            <td>
+
+              <span class="ac-count">
+                {{ customer.acCount }}
+              </span>
+
+            </td>
+
+
+            <!-- NEXT ACTION -->
+
+            <td>
+
+              <div class="next-action">
+
+                <strong class="action-name">
+                  {{ customer.nextActionLabel }}
+                </strong>
+
+                <span class="sub">
+                  {{ customer.nextActionDate }}
+                </span>
+
+              </div>
+
+            </td>
+
+
+            <!-- STATUS -->
+
+            <td>
+
+              <span class="status">
+                {{ customer.status }}
+              </span>
+
+            </td>
+
+
+            <!-- ACTIONS -->
+
+            <td>
+
+              <div class="row-actions">
+
+                <button
+                  type="button"
+                  class="action-btn whatsapp-btn"
+                  [disabled]="!customer.whatsappAvailable"
+                  (click)="openWhatsApp(
+                    customer.primaryPhone,
+                    customer.name
+                  )"
+                  title="Open WhatsApp"
+                >
+                  WhatsApp
+                </button>
+
+
+                <button
+                  type="button"
+                  class="action-btn"
+                  (click)="callCustomer(
+                    customer.primaryPhone
+                  )"
+                  title="Call customer"
+                >
+                  Call
+                </button>
+
+
+            <a
+  class="action-btn view-btn"
+  [routerLink]="['/customers', customer.id]"
+  title="View customer"
+>
+  View
+</a>
+
+                <button
+                  type="button"
+                  class="action-btn more-btn"
+                  title="More actions"
+                >
+                  ⋯
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        } @empty {
+
+          <tr>
+
+            <td
+              colspan="6"
+              class="empty-state"
+            >
+
+              <div>
+
+                <strong>
+                  No customers found
+                </strong>
+
+                <span>
+                  Try changing your search.
+                </span>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
