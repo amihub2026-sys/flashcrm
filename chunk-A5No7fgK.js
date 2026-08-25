@@ -1,0 +1,1 @@
+var t=[{path:``,loadComponent:()=>import(`./chunk-BanDjh4i.js`).then(o=>o.AcUnitsComponent)}];export{t as AC_UNITS_ROUTES};

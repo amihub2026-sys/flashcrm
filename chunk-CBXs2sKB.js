@@ -1,1 +1,0 @@
-var n=[{path:``,loadComponent:()=>import(`./chunk-CallDg1e.js`).then(o=>o.CalendarComponent)}];export{n as CALENDAR_ROUTES};

@@ -1,1 +1,0 @@
-var t=[{path:``,loadComponent:()=>import(`./chunk-CWR1huVi.js`).then(o=>o.QuotationsComponent)}];export{t as QUOTATIONS_ROUTES};
