@@ -1,0 +1,100 @@
+<section class="notifications-page">
+
+  <div class="notifications-header">
+
+    <div>
+      <span class="eyebrow">
+        CUSTOMER COMMUNICATION
+      </span>
+
+      <h1>
+        Notifications
+      </h1>
+
+      <p>
+        Create and manage WhatsApp notifications for all customers,
+        AMC customers, EWC customers or selected customers.
+      </p>
+    </div>
+
+    <a
+      class="btn primary"
+      routerLink="/notifications/new"
+    >
+      + New Notification
+    </a>
+
+  </div>
+
+
+  <!-- SUMMARY -->
+
+  <section class="notification-summary">
+
+    @for (
+      card of summaryCards;
+      track card.label
+    ) {
+
+      <div class="summary-card">
+
+        <span>
+          {{ card.label }}
+        </span>
+
+        <strong>
+          {{ card.value }}
+        </strong>
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- HISTORY -->
+
+  <section class="history-card">
+
+    <div class="history-head">
+
+      <div>
+        <span>
+          NOTIFICATION HISTORY
+        </span>
+
+        <h2>
+          Recent Notifications
+        </h2>
+      </div>
+
+    </div>
+
+
+    <div class="empty-state">
+
+      <div class="empty-icon">
+        ✉
+      </div>
+
+      <strong>
+        No notifications created yet
+      </strong>
+
+      <span>
+        Create your first customer notification to begin.
+      </span>
+
+      <a
+        class="btn primary"
+        routerLink="/notifications/new"
+      >
+        + Create Notification
+      </a>
+
+    </div>
+
+  </section>
+
+</section>

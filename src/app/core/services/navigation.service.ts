@@ -9,27 +9,85 @@ export interface NavigationItem {
 
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
+
   readonly items: NavigationItem[] = [
-    { label: 'Dashboard', icon: '▦', route: '/dashboard', section: 'MAIN' },
 
-    { label: 'Customers', icon: '◎', route: '/customers', section: 'WORK' },
+    {
+      label: 'Dashboard',
+      icon: '▦',
+      route: '/dashboard',
+      section: 'MAIN'
+    },
 
-    { label: 'Today\'s Follow-ups', icon: '◷', route: '/reminders' },
+    {
+      label: 'Customers',
+      icon: '◎',
+      route: '/customers',
+      section: 'WORK'
+    },
 
-    { label: 'Services', icon: '⌁', route: '/services' },
+    {
+      label: 'Today\'s Follow-ups',
+      icon: '◷',
+      route: '/reminders'
+    },
 
-    { label: 'AMC & EWC', icon: '↻', route: '/amc' },
+    {
+      label: 'Notifications',
+      icon: '✉',
+      route: '/notifications'
+    },
 
-    { label: 'Technicians', icon: '♙', route: '/technicians', section: 'OPERATIONS' },
+    {
+      label: 'Services',
+      icon: '⌁',
+      route: '/services'
+    },
 
-    { label: 'Billing', icon: '₹', route: '/billing' },
+    {
+      label: 'AMC & EWC',
+      icon: '↻',
+      route: '/amc'
+    },
 
-    { label: 'Inventory', icon: '◫', route: '/inventory' },
+    {
+      label: 'Technicians',
+      icon: '♙',
+      route: '/technicians',
+      section: 'OPERATIONS'
+    },
 
-    { label: 'Calendar', icon: '□', route: '/calendar', section: 'INSIGHTS' },
+    {
+      label: 'Billing',
+      icon: '₹',
+      route: '/billing'
+    },
 
-    { label: 'Reports', icon: '⌁', route: '/reports' },
+    {
+      label: 'Inventory',
+      icon: '◫',
+      route: '/inventory'
+    },
 
-    { label: 'Settings', icon: '⚙', route: '/settings', section: 'ADMIN' }
+    {
+      label: 'Calendar',
+      icon: '□',
+      route: '/calendar',
+      section: 'INSIGHTS'
+    },
+
+    {
+      label: 'Reports',
+      icon: '⌁',
+      route: '/reports'
+    },
+
+    {
+      label: 'Settings',
+      icon: '⚙',
+      route: '/settings',
+      section: 'ADMIN'
+    }
+
   ];
 }
