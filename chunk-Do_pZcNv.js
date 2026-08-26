@@ -1,1 +1,0 @@
-var o=[{path:``,loadComponent:()=>import(`./chunk-BA_BN8ly2.js`).then(t=>t.SettingsComponent)}];export{o as SETTINGS_ROUTES};
