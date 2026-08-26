@@ -38,10 +38,10 @@ jobs:
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload Angular build
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: ./dist/ac-service-center-crm
+    - name: Upload Angular build
+  uses: actions/upload-pages-artifact@v4
+  with:
+    path: ./dist/ac-service-center-crm/browser
 
   deploy:
 
