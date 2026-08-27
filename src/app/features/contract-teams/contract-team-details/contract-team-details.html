@@ -1,0 +1,893 @@
+<section class="contract-team-details-page">
+
+  <!-- =====================================================
+       PAGE HEADER
+  ====================================================== -->
+
+  <div class="details-header">
+
+    <div class="header-left">
+
+      <a
+        routerLink="/contract-teams"
+        class="back-link"
+      >
+        ← Back to Contract Teams
+      </a>
+
+      @if (team) {
+
+        <div class="title-row">
+
+          <div class="team-large-icon">
+            ♙
+          </div>
+
+          <div>
+
+            <div class="title-with-status">
+
+              <h1>
+                {{ team.teamName }}
+              </h1>
+
+              <span
+                class="status-badge"
+                [class.active]="team.status === 'Active'"
+                [class.inactive]="team.status === 'Inactive'"
+                [class.suspended]="team.status === 'Suspended'"
+              >
+                {{ team.status }}
+              </span>
+
+            </div>
+
+            <p>
+              Contract Team · {{ team.teamCode }}
+            </p>
+
+          </div>
+
+        </div>
+
+      }
+
+    </div>
+
+    @if (team) {
+
+      <div class="header-actions">
+
+        <a
+          class="secondary-btn"
+          [routerLink]="['/contract-teams']"
+        >
+          ← Teams
+        </a>
+
+      </div>
+
+    }
+
+  </div>
+
+
+  @if (!team) {
+
+    <!-- ===================================================
+         NOT FOUND
+    ==================================================== -->
+
+    <section class="not-found-card">
+
+      <div class="not-found-icon">
+        !
+      </div>
+
+      <h2>
+        Contract Team Not Found
+      </h2>
+
+      <p>
+        This team could not be found in the current frontend
+        session.
+      </p>
+
+      <a
+        routerLink="/contract-teams"
+        class="primary-btn"
+      >
+        Back to Contract Teams
+      </a>
+
+    </section>
+
+  }
+
+
+  @if (team) {
+
+    <!-- ===================================================
+         SUMMARY
+    ==================================================== -->
+
+    <div class="summary-grid">
+
+      <article class="summary-card">
+
+        <div class="summary-icon">
+          👥
+        </div>
+
+        <div>
+
+          <span>Members</span>
+
+          <strong>
+            {{ members.length }}
+          </strong>
+
+          <small>
+            Registered team members
+          </small>
+
+        </div>
+
+      </article>
+
+
+      <article class="summary-card">
+
+        <div class="summary-icon">
+          🪪
+        </div>
+
+        <div>
+
+          <span>KYC Files</span>
+
+          <strong>
+            {{ totalKycFiles }}
+          </strong>
+
+          <small>
+            Uploaded documents
+          </small>
+
+        </div>
+
+      </article>
+
+
+      <article class="summary-card">
+
+        <div class="summary-icon">
+          ✓
+        </div>
+
+        <div>
+
+          <span>Team Status</span>
+
+          <strong class="status-value">
+            {{ team.status }}
+          </strong>
+
+          <small>
+            Current availability
+          </small>
+
+        </div>
+
+      </article>
+
+
+      <article class="summary-card">
+
+        <div class="summary-icon">
+          📅
+        </div>
+
+        <div>
+
+          <span>Created</span>
+
+          <strong class="date-value">
+            {{ team.createdAt | date }}
+          </strong>
+
+          <small>
+            Team registration date
+          </small>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- ===================================================
+         TEAM INFORMATION
+    ==================================================== -->
+
+    <section class="details-card">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-eyebrow">
+            TEAM INFORMATION
+          </span>
+
+          <h2>
+            Contract Team Details
+          </h2>
+
+          <p>
+            Complete information about this external service team.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="information-grid">
+
+        <div class="information-item">
+
+          <span>
+            Team Name
+          </span>
+
+          <strong>
+            {{ team.teamName }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            Team Code
+          </span>
+
+          <strong>
+            {{ team.teamCode }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            Contact Person
+          </span>
+
+          <strong>
+            {{ team.contactPersonName }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            Primary Phone
+          </span>
+
+          <strong>
+            {{ team.primaryPhone }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            Alternate Phone
+          </span>
+
+          <strong>
+            {{ team.alternatePhone || 'Not provided' }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            WhatsApp
+          </span>
+
+          <strong>
+            {{ team.whatsappAvailable ? 'Available' : 'Not available' }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            Preferred Contact
+          </span>
+
+          <strong>
+            {{ team.preferredContact }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            Email
+          </span>
+
+          <strong>
+            {{ team.email || 'Not provided' }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            Area
+          </span>
+
+          <strong>
+            {{ team.area }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            City
+          </span>
+
+          <strong>
+            {{ team.city }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item">
+
+          <span>
+            Pincode
+          </span>
+
+          <strong>
+            {{ team.pincode }}
+          </strong>
+
+        </div>
+
+
+        <div class="information-item full-width">
+
+          <span>
+            Address
+          </span>
+
+          <strong>
+            {{ team.address }}
+          </strong>
+
+        </div>
+
+
+        @if (team.notes) {
+
+          <div class="information-item full-width">
+
+            <span>
+              Notes
+            </span>
+
+            <strong class="normal-text">
+              {{ team.notes }}
+            </strong>
+
+          </div>
+
+        }
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         TEAM MEMBERS
+    ==================================================== -->
+
+    <section class="details-card">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-eyebrow">
+            TEAM MEMBERS
+          </span>
+
+          <h2>
+            Members
+          </h2>
+
+          <p>
+            All technicians and supporting members registered
+            under this contract team.
+          </p>
+
+        </div>
+
+        <div class="count-badge">
+          {{ members.length }} Members
+        </div>
+
+      </div>
+
+
+      @if (members.length === 0) {
+
+        <div class="empty-members">
+
+          <div class="empty-small-icon">
+            👤
+          </div>
+
+          <h3>
+            No members added
+          </h3>
+
+          <p>
+            This contract team currently has no registered members.
+          </p>
+
+        </div>
+
+      }
+
+
+      @if (members.length > 0) {
+
+        <div class="members-list">
+
+          @for (
+            member of members;
+            track $index;
+            let memberIndex = $index
+          ) {
+
+            <article class="member-card">
+
+              <!-- MEMBER HEADER -->
+
+              <div class="member-header">
+
+                <div class="member-identity">
+
+                  <div class="member-avatar">
+                    {{ memberIndex + 1 }}
+                  </div>
+
+                  <div>
+
+                    <div class="member-name-row">
+
+                      <h3>
+                        {{ member.name }}
+                      </h3>
+
+                      <span
+                        class="member-status"
+                        [class.active]="member.status === 'Active'"
+                        [class.inactive]="member.status === 'Inactive'"
+                      >
+                        {{ member.status }}
+                      </span>
+
+                    </div>
+
+                    <p>
+                      {{ member.role }}
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <div
+                  class="kyc-status"
+                  [class.verified]="member.kycVerified"
+                >
+
+                  @if (member.kycVerified) {
+                    ✓ KYC Verified
+                  } @else {
+                    KYC Pending
+                  }
+
+                </div>
+
+              </div>
+
+
+              <!-- MEMBER INFORMATION -->
+
+              <div class="member-information-grid">
+
+                <div>
+
+                  <span>
+                    Phone
+                  </span>
+
+                  <strong>
+                    {{ member.phone }}
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    Alternate Phone
+                  </span>
+
+                  <strong>
+                    {{ member.alternatePhone || 'Not provided' }}
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    Role
+                  </span>
+
+                  <strong>
+                    {{ member.role }}
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    Area
+                  </span>
+
+                  <strong>
+                    {{ member.area || 'Not provided' }}
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    City
+                  </span>
+
+                  <strong>
+                    {{ member.city || 'Not provided' }}
+                  </strong>
+
+                </div>
+
+
+                <div>
+
+                  <span>
+                    Pincode
+                  </span>
+
+                  <strong>
+                    {{ member.pincode || 'Not provided' }}
+                  </strong>
+
+                </div>
+
+
+                <div class="member-address">
+
+                  <span>
+                    Address
+                  </span>
+
+                  <strong>
+                    {{ member.address || 'Not provided' }}
+                  </strong>
+
+                </div>
+
+
+                @if (member.notes) {
+
+                  <div class="member-address">
+
+                    <span>
+                      Notes
+                    </span>
+
+                    <strong>
+                      {{ member.notes }}
+                    </strong>
+
+                  </div>
+
+                }
+
+              </div>
+
+
+              <!-- KYC DOCUMENTS -->
+
+              <div class="kyc-section">
+
+                <div class="kyc-heading">
+
+                  <div>
+
+                    <h4>
+                      KYC Documents
+                    </h4>
+
+                    <p>
+                      Uploaded identity and supporting documents.
+                    </p>
+
+                  </div>
+
+                  <span class="kyc-count">
+                    {{ getMemberKycFiles(member).length }}
+                    Files
+                  </span>
+
+                </div>
+
+
+                @if (getMemberKycFiles(member).length === 0) {
+
+                  <div class="no-documents">
+
+                    No documents uploaded for this member.
+
+                  </div>
+
+                }
+
+
+                @if (getMemberKycFiles(member).length > 0) {
+
+                  <div class="documents-grid">
+
+                    @for (
+                      document of getMemberKycFiles(member);
+                      track document.documentType
+                    ) {
+
+                      <article class="document-card">
+
+                        <div class="document-icon">
+                          {{ getFileIcon(document) }}
+                        </div>
+
+
+                        <div class="document-content">
+
+                          <div class="document-title-row">
+
+                            <h5>
+                              {{ document.documentType }}
+                            </h5>
+
+                            <span class="uploaded-badge">
+                              Uploaded
+                            </span>
+
+                          </div>
+
+
+                          <p class="document-file-name">
+
+                            {{ document.fileName }}
+
+                          </p>
+
+
+                          <p class="document-meta">
+
+                            {{ formatFileSize(document.fileSize) }}
+
+                            @if (document.mimeType) {
+                              · {{ document.mimeType }}
+                            }
+
+                          </p>
+
+
+                          <div class="document-actions">
+
+                            <button
+                              type="button"
+                              class="document-view-btn"
+                              (click)="viewFile(document)"
+                            >
+                              👁 View
+                            </button>
+
+                            <button
+                              type="button"
+                              class="document-download-btn"
+                              (click)="downloadFile(document)"
+                            >
+                              ↓ Download
+                            </button>
+
+                          </div>
+
+                        </div>
+
+                      </article>
+
+                    }
+
+                  </div>
+
+                }
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      }
+
+    </section>
+
+
+    <!-- ===================================================
+         OPERATIONS
+    ==================================================== -->
+
+    <section class="operations-card">
+
+      <div>
+
+        <span class="section-eyebrow">
+          TEAM OPERATIONS
+        </span>
+
+        <h2>
+          Jobs & Settlement
+        </h2>
+
+        <p>
+          Job assignment, customer collection, materials and
+          settlement tracking will be connected here.
+        </p>
+
+      </div>
+
+
+      <div class="operations-grid">
+
+        <article>
+
+          <span>
+            01
+          </span>
+
+          <div>
+
+            <h3>
+              Active Jobs
+            </h3>
+
+            <strong>
+              0
+            </strong>
+
+          </div>
+
+        </article>
+
+
+        <article>
+
+          <span>
+            02
+          </span>
+
+          <div>
+
+            <h3>
+              Customer Amount
+            </h3>
+
+            <strong>
+              ₹0
+            </strong>
+
+          </div>
+
+        </article>
+
+
+        <article>
+
+          <span>
+            03
+          </span>
+
+          <div>
+
+            <h3>
+              Team Settlement
+            </h3>
+
+            <strong>
+              ₹0
+            </strong>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         BOTTOM ACTIONS
+    ==================================================== -->
+
+    <div class="bottom-actions">
+
+      <a
+        routerLink="/contract-teams"
+        class="secondary-btn"
+      >
+        ← Back to Contract Teams
+      </a>
+
+      <a
+        routerLink="/contract-teams"
+        class="primary-btn"
+      >
+        Done
+      </a>
+
+    </div>
+
+  }
+
+</section>

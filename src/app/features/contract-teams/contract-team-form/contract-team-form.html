@@ -1,0 +1,871 @@
+<app-back-button label="Back to Contract Teams"></app-back-button>
+
+<section class="contract-team-form-page">
+
+  <!-- PAGE HEADER -->
+  <header class="form-header">
+
+    <div>
+      <span class="eyebrow">
+        OPERATIONS / CONTRACT TEAMS
+      </span>
+
+      <h1>Add Contract Team</h1>
+
+      <p>
+        Register an external team and its primary contact information.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="secondary-btn"
+      (click)="resetForm()"
+    >
+      Reset
+    </button>
+
+  </header>
+
+
+  <form
+    class="contract-team-form"
+    [formGroup]="contractTeamForm"
+    (ngSubmit)="submit()"
+    novalidate
+  >
+
+    <!-- =========================================
+         01 — TEAM INFORMATION
+    ========================================== -->
+
+    <section class="form-card">
+
+      <div class="card-heading">
+
+        <div class="card-number">
+          01
+        </div>
+
+        <div>
+          <h2>Team Information</h2>
+
+          <p>
+            Basic information about the external contract team.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <!-- TEAM NAME -->
+        <div class="field">
+
+          <label for="teamName">
+            Team Name <span>*</span>
+          </label>
+
+          <input
+            id="teamName"
+            type="text"
+            formControlName="teamName"
+            placeholder="Enter team name"
+            autocomplete="organization"
+          />
+
+          @if (
+            contractTeamForm.controls.teamName.invalid &&
+            contractTeamForm.controls.teamName.touched
+          ) {
+            <small class="error">
+              Team name is required.
+            </small>
+          }
+
+        </div>
+
+
+        <!-- TEAM CODE -->
+        <div class="field">
+
+          <label for="teamCode">
+            Team Code <span>*</span>
+          </label>
+
+          <input
+            id="teamCode"
+            type="text"
+            formControlName="teamCode"
+            placeholder="Example: CT-0001"
+          />
+
+          @if (
+            contractTeamForm.controls.teamCode.invalid &&
+            contractTeamForm.controls.teamCode.touched
+          ) {
+            <small class="error">
+              Team code is required.
+            </small>
+          }
+
+        </div>
+
+
+        <!-- CONTACT PERSON -->
+        <div class="field">
+
+          <label for="contactPersonName">
+            Contact Person <span>*</span>
+          </label>
+
+          <input
+            id="contactPersonName"
+            type="text"
+            formControlName="contactPersonName"
+            placeholder="Team leader / contact person"
+            autocomplete="name"
+          />
+
+          @if (
+            contractTeamForm.controls.contactPersonName.invalid &&
+            contractTeamForm.controls.contactPersonName.touched
+          ) {
+            <small class="error">
+              Contact person is required.
+            </small>
+          }
+
+        </div>
+
+
+        <!-- PRIMARY PHONE -->
+        <div class="field">
+
+          <label for="primaryPhone">
+            Primary Phone <span>*</span>
+          </label>
+
+          <input
+            id="primaryPhone"
+            type="tel"
+            inputmode="numeric"
+            maxlength="10"
+            formControlName="primaryPhone"
+            placeholder="10-digit mobile number"
+            autocomplete="tel"
+          />
+
+          @if (
+            contractTeamForm.controls.primaryPhone.invalid &&
+            contractTeamForm.controls.primaryPhone.touched
+          ) {
+            <small class="error">
+              Enter a valid 10-digit mobile number.
+            </small>
+          }
+
+        </div>
+
+
+        <!-- ALTERNATE PHONE -->
+        <div class="field">
+
+          <label for="alternatePhone">
+            Alternate Phone
+          </label>
+
+          <input
+            id="alternatePhone"
+            type="tel"
+            inputmode="numeric"
+            maxlength="10"
+            formControlName="alternatePhone"
+            placeholder="Optional alternate number"
+          />
+
+        </div>
+
+
+        <!-- EMAIL -->
+        <div class="field">
+
+          <label for="email">
+            Email
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="team@example.com"
+            autocomplete="email"
+          />
+
+        </div>
+
+
+        <!-- PREFERRED CONTACT -->
+        <div class="field">
+
+          <label for="preferredContact">
+            Preferred Contact <span>*</span>
+          </label>
+
+          <select
+            id="preferredContact"
+            formControlName="preferredContact"
+          >
+
+            @for (
+              option of contactPreferenceOptions;
+              track option
+            ) {
+              <option [value]="option">
+                {{ option }}
+              </option>
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- STATUS -->
+        <div class="field">
+
+          <label for="status">
+            Team Status <span>*</span>
+          </label>
+
+          <select
+            id="status"
+            formControlName="status"
+          >
+
+            @for (
+              option of statusOptions;
+              track option
+            ) {
+              <option [value]="option">
+                {{ option }}
+              </option>
+            }
+
+          </select>
+
+        </div>
+
+
+        <!-- WHATSAPP -->
+        <div class="field field-checkbox">
+
+          <label class="checkbox-label">
+
+            <input
+              type="checkbox"
+              formControlName="whatsappAvailable"
+            />
+
+            <span>
+              WhatsApp available on primary number
+            </span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         02 — ADDRESS
+    ========================================== -->
+
+    <section class="form-card">
+
+      <div class="card-heading">
+
+        <div class="card-number">
+          02
+        </div>
+
+        <div>
+          <h2>Address</h2>
+
+          <p>
+            Registered or contact address of the contract team.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="field field-full">
+
+          <label for="address">
+            Address <span>*</span>
+          </label>
+
+          <textarea
+            id="address"
+            rows="4"
+            formControlName="address"
+            placeholder="Enter complete address"
+          ></textarea>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="area">
+            Area <span>*</span>
+          </label>
+
+          <input
+            id="area"
+            type="text"
+            formControlName="area"
+            placeholder="Area / locality"
+          />
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="city">
+            City <span>*</span>
+          </label>
+
+          <input
+            id="city"
+            type="text"
+            formControlName="city"
+            placeholder="City"
+          />
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="pincode">
+            Pincode <span>*</span>
+          </label>
+
+          <input
+            id="pincode"
+            type="text"
+            inputmode="numeric"
+            maxlength="6"
+            formControlName="pincode"
+            placeholder="6-digit pincode"
+          />
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         03 — TEAM MEMBERS
+    ========================================== -->
+
+    <section class="form-card">
+
+      <div class="card-heading card-heading-with-action">
+
+        <div class="heading-left">
+
+          <div class="card-number">
+            03
+          </div>
+
+          <div>
+            <h2>Team Members</h2>
+
+            <p>
+              Add the external technicians and helpers belonging to this team.
+            </p>
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="secondary-btn"
+          (click)="addMember()"
+        >
+          + Add Member
+        </button>
+
+      </div>
+
+
+      <div
+        class="members-list"
+        formArrayName="members"
+      >
+
+        @for (
+          member of members.controls;
+          track $index;
+          let i = $index
+        ) {
+
+          <article
+            class="member-card"
+            [formGroupName]="i"
+          >
+
+            <div class="member-header">
+
+              <div>
+
+                <span class="member-number">
+                  MEMBER {{ i + 1 }}
+                </span>
+
+                <h3>
+                  Team Member {{ i + 1 }}
+                </h3>
+
+              </div>
+
+
+              @if (members.length > 1) {
+
+                <button
+                  type="button"
+                  class="remove-btn"
+                  (click)="removeMember(i)"
+                >
+                  Remove
+                </button>
+
+              }
+
+            </div>
+
+
+            <div class="form-grid">
+
+              <!-- MEMBER NAME -->
+              <div class="field">
+
+                <label>
+                  Name <span>*</span>
+                </label>
+
+                <input
+                  type="text"
+                  formControlName="name"
+                  placeholder="Member name"
+                />
+
+              </div>
+
+
+              <!-- MEMBER PHONE -->
+              <div class="field">
+
+                <label>
+                  Phone <span>*</span>
+                </label>
+
+                <input
+                  type="tel"
+                  inputmode="numeric"
+                  maxlength="10"
+                  formControlName="phone"
+                  placeholder="10-digit mobile number"
+                />
+
+              </div>
+
+
+              <!-- ALTERNATE PHONE -->
+              <div class="field">
+
+                <label>
+                  Alternate Phone
+                </label>
+
+                <input
+                  type="tel"
+                  inputmode="numeric"
+                  maxlength="10"
+                  formControlName="alternatePhone"
+                  placeholder="Optional"
+                />
+
+              </div>
+
+
+              <!-- ROLE -->
+              <div class="field">
+
+                <label>
+                  Role <span>*</span>
+                </label>
+
+                <select formControlName="role">
+
+                  @for (
+                    option of memberRoleOptions;
+                    track option
+                  ) {
+
+                    <option [value]="option">
+                      {{ option }}
+                    </option>
+
+                  }
+
+                </select>
+
+              </div>
+
+
+              <!-- AREA -->
+              <div class="field">
+
+                <label>
+                  Area
+                </label>
+
+                <input
+                  type="text"
+                  formControlName="area"
+                  placeholder="Area"
+                />
+
+              </div>
+
+
+              <!-- CITY -->
+              <div class="field">
+
+                <label>
+                  City
+                </label>
+
+                <input
+                  type="text"
+                  formControlName="city"
+                  placeholder="City"
+                />
+
+              </div>
+
+
+              <!-- PINCODE -->
+              <div class="field">
+
+                <label>
+                  Pincode
+                </label>
+
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  maxlength="6"
+                  formControlName="pincode"
+                  placeholder="6-digit pincode"
+                />
+
+              </div>
+
+
+              <!-- KYC VERIFIED -->
+              <div class="field field-checkbox">
+
+                <label class="checkbox-label">
+
+                  <input
+                    type="checkbox"
+                    formControlName="kycVerified"
+                  />
+
+                  <span>
+                    KYC verified
+                  </span>
+
+                </label>
+
+              </div>
+
+
+              <!-- =================================
+                   KYC DOCUMENTS
+              ================================== -->
+
+              <div class="kyc-section field-full">
+
+                <div class="kyc-heading">
+
+                  <div>
+
+                    <strong>
+                      KYC Documents
+                    </strong>
+
+                    <span>
+                      Upload identity and supporting documents for this team member.
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <div class="kyc-document-grid">
+
+                  @for (
+                    documentType of documentTypeOptions;
+                    track documentType
+                  ) {
+
+                    <div class="kyc-upload-card">
+
+                      <!-- DOCUMENT ICON -->
+                      <div class="kyc-upload-icon">
+                        ID
+                      </div>
+
+
+                      <div class="kyc-upload-content">
+
+                        <!-- DOCUMENT NAME -->
+                        <strong>
+                          {{ documentType }}
+                        </strong>
+
+
+                        <span class="kyc-help-text">
+                          JPG, PNG, WEBP or PDF · Max 5 MB
+                        </span>
+
+
+                        <!-- FILE UPLOAD -->
+                        <label class="upload-btn">
+
+                          @if (
+                            hasKycDocument(i, documentType)
+                          ) {
+                            Replace File
+                          } @else {
+                            Choose File
+                          }
+
+                          <input
+                            type="file"
+                            accept="image/jpeg,image/png,image/webp,application/pdf"
+                            (change)="onKycFileSelected($event, i, documentType)"
+                          />
+
+                        </label>
+
+
+                        <!-- SELECTED FILE -->
+                        @if (
+                          getSelectedKycDocument(i, documentType);
+                          as selectedDocument
+                        ) {
+
+                          <div class="selected-kyc-file">
+
+                            <div class="selected-kyc-file-info">
+
+                              <strong>
+                                ✓ {{ selectedDocument.fileName }}
+                              </strong>
+
+                              <span>
+                                {{ formatFileSize(selectedDocument.fileSize) }}
+                              </span>
+
+                            </div>
+
+
+                            <button
+                              type="button"
+                              class="kyc-remove-btn"
+                              (click)="removeKycDocument(i, documentType)"
+                            >
+                              Remove
+                            </button>
+
+                          </div>
+
+                        }
+
+
+                        <!-- FILE ERROR -->
+                        @if (
+                          getKycFileError(i, documentType);
+                          as fileError
+                        ) {
+
+                          <small class="kyc-file-error">
+                            {{ fileError }}
+                          </small>
+
+                        }
+
+                      </div>
+
+                    </div>
+
+                  }
+
+                </div>
+
+              </div>
+
+
+              <!-- MEMBER STATUS -->
+              <div class="field">
+
+                <label>
+                  Status
+                </label>
+
+                <select formControlName="status">
+
+                  @for (
+                    option of memberStatusOptions;
+                    track option
+                  ) {
+
+                    <option [value]="option">
+                      {{ option }}
+                    </option>
+
+                  }
+
+                </select>
+
+              </div>
+
+
+              <!-- MEMBER ADDRESS -->
+              <div class="field field-full">
+
+                <label>
+                  Address
+                </label>
+
+                <textarea
+                  rows="3"
+                  formControlName="address"
+                  placeholder="Member address"
+                ></textarea>
+
+              </div>
+
+
+              <!-- MEMBER NOTES -->
+              <div class="field field-full">
+
+                <label>
+                  Notes
+                </label>
+
+                <textarea
+                  rows="2"
+                  formControlName="notes"
+                  placeholder="Optional notes"
+                ></textarea>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         04 — INTERNAL NOTES
+    ========================================== -->
+
+    <section class="form-card">
+
+      <div class="card-heading">
+
+        <div class="card-number">
+          04
+        </div>
+
+        <div>
+          <h2>Internal Notes</h2>
+
+          <p>
+            Optional information for your service center staff.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="field field-full">
+
+        <label for="notes">
+          Notes
+        </label>
+
+        <textarea
+          id="notes"
+          rows="4"
+          formControlName="notes"
+          placeholder="Add internal notes about this contract team..."
+        ></textarea>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ACTIONS
+    ========================================== -->
+
+    <footer class="form-actions">
+
+      <button
+        type="button"
+        class="secondary-btn"
+        (click)="resetForm()"
+      >
+        Cancel
+      </button>
+
+
+      <button
+        type="submit"
+        class="primary-btn"
+      >
+        Save Contract Team
+      </button>
+
+    </footer>
+
+  </form>
+
+</section>

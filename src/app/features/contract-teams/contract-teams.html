@@ -1,0 +1,553 @@
+<section class="contract-teams-page">
+
+  <!-- ========================================================
+       PAGE HEADER
+  ========================================================= -->
+
+  <div class="page-header">
+
+    <div>
+
+      <span class="eyebrow">
+        OPERATIONS
+      </span>
+
+      <h1>
+        Contract Teams
+      </h1>
+
+      <p>
+        Manage external service teams used when workload is high
+        or office technicians are unavailable.
+      </p>
+
+    </div>
+
+
+    <!-- TOP ADD BUTTON -->
+
+    <a
+      class="primary-btn"
+      routerLink="/contract-teams/new"
+    >
+
+      <span>+</span>
+
+      Add Contract Team
+
+    </a>
+
+  </div>
+
+
+  <!-- ========================================================
+       SUMMARY CARDS
+  ========================================================= -->
+
+  <div class="summary-grid">
+
+    <!-- TOTAL TEAMS -->
+
+    <article class="summary-card">
+
+      <div class="summary-icon">
+        ♙
+      </div>
+
+      <div>
+
+        <span>
+          Total Teams
+        </span>
+
+        <strong>
+          {{ totalTeams }}
+        </strong>
+
+        <small>
+          Registered contract teams
+        </small>
+
+      </div>
+
+    </article>
+
+
+    <!-- ACTIVE TEAMS -->
+
+    <article class="summary-card">
+
+      <div class="summary-icon">
+        ✓
+      </div>
+
+      <div>
+
+        <span>
+          Active Teams
+        </span>
+
+        <strong>
+          {{ activeTeams }}
+        </strong>
+
+        <small>
+          Currently available
+        </small>
+
+      </div>
+
+    </article>
+
+
+    <!-- ACTIVE JOBS -->
+
+    <article class="summary-card">
+
+      <div class="summary-icon">
+        ⌁
+      </div>
+
+      <div>
+
+        <span>
+          Active Jobs
+        </span>
+
+        <strong>
+          {{ activeJobs }}
+        </strong>
+
+        <small>
+          Installation & service work
+        </small>
+
+      </div>
+
+    </article>
+
+
+    <!-- PENDING SETTLEMENT -->
+
+    <article class="summary-card">
+
+      <div class="summary-icon">
+        ₹
+      </div>
+
+      <div>
+
+        <span>
+          Pending Settlement
+        </span>
+
+        <strong>
+          ₹{{ pendingSettlement }}
+        </strong>
+
+        <small>
+          Amount payable to teams
+        </small>
+
+      </div>
+
+    </article>
+
+  </div>
+
+
+  <!-- ========================================================
+       TEAM DIRECTORY
+  ========================================================= -->
+
+  <section class="teams-section">
+
+    <!-- SECTION HEADER -->
+
+    <div class="section-heading">
+
+      <div>
+
+        <span class="section-eyebrow">
+          TEAM DIRECTORY
+        </span>
+
+        <h2>
+          Contract Teams
+        </h2>
+
+        <p>
+          View team members, contact details, workload and
+          settlement status.
+        </p>
+
+      </div>
+
+
+      <!-- SEARCH -->
+
+      <div class="section-actions">
+
+        <input
+          type="search"
+          placeholder="Search teams..."
+          aria-label="Search contract teams"
+          [value]="searchTerm"
+          (input)="onSearch($event)"
+        />
+
+
+        @if (searchTerm) {
+
+          <button
+            class="filter-btn"
+            type="button"
+            (click)="clearSearch()"
+          >
+            Clear
+          </button>
+
+        } @else {
+
+          <button
+            class="filter-btn"
+            type="button"
+          >
+            Filter
+          </button>
+
+        }
+
+      </div>
+
+    </div>
+
+
+    <!-- ======================================================
+         EMPTY STATE
+    ======================================================= -->
+
+    @if (filteredTeams.length === 0) {
+
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          ♙
+        </div>
+
+        @if (teams.length === 0) {
+
+          <h3>
+            No contract teams added yet
+          </h3>
+
+          <p>
+            Add your first external service team to start
+            tracking members, jobs, materials and settlements.
+          </p>
+
+          <a
+            class="primary-btn"
+            routerLink="/contract-teams/new"
+          >
+            + Add Contract Team
+          </a>
+
+        } @else {
+
+          <h3>
+            No teams found
+          </h3>
+
+          <p>
+            No contract team matches your search.
+          </p>
+
+          <button
+            class="primary-btn"
+            type="button"
+            (click)="clearSearch()"
+          >
+            Clear Search
+          </button>
+
+        }
+
+      </div>
+
+    }
+
+
+    <!-- ======================================================
+         TEAM LIST
+    ======================================================= -->
+
+    @if (filteredTeams.length > 0) {
+
+      <div class="team-list">
+
+        @for (
+          team of filteredTeams;
+          track team.id
+        ) {
+
+          <article class="team-card">
+
+            <!-- TEAM MAIN -->
+
+            <div class="team-card-main">
+
+              <div class="team-avatar">
+                ♙
+              </div>
+
+
+              <div class="team-information">
+
+                <div class="team-title-row">
+
+                  <h3>
+                    {{ team.teamName }}
+                  </h3>
+
+                  <span
+                    class="team-status"
+                    [class.active]="team.status === 'Active'"
+                    [class.inactive]="team.status !== 'Active'"
+                  >
+                    {{ team.status }}
+                  </span>
+
+                </div>
+
+
+                <p class="team-code">
+                  Team Code:
+                  <strong>
+                    {{ team.teamCode }}
+                  </strong>
+                </p>
+
+
+                <p class="team-contact">
+
+                  <strong>
+                    {{ team.contactPersonName }}
+                  </strong>
+
+                  <span>
+                    {{ team.primaryPhone }}
+                  </span>
+
+                </p>
+
+
+                <p class="team-location">
+
+                  {{ team.area }},
+                  {{ team.city }}
+
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <!-- TEAM STATS -->
+
+            <div class="team-card-stats">
+
+              <div>
+
+                <span>
+                  MEMBERS
+                </span>
+
+                <strong>
+                  {{ getMemberCount(team) }}
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span>
+                  KYC FILES
+                </span>
+
+                <strong>
+                  {{ getKycCount(team) }}
+                </strong>
+
+              </div>
+
+
+              <div>
+
+                <span>
+                  JOBS
+                </span>
+
+                <strong>
+                  0
+                </strong>
+
+              </div>
+
+            </div>
+
+
+            <!-- TEAM ACTION -->
+
+            <div class="team-card-action">
+
+              <a
+                class="view-btn"
+                [routerLink]="[
+                  '/contract-teams/details',
+                  team.id
+                ]"
+              >
+                View Details
+              </a>
+
+            </div>
+
+          </article>
+
+        }
+
+      </div>
+
+    }
+
+  </section>
+
+
+  <!-- ========================================================
+       TEAM OPERATIONS
+  ========================================================= -->
+
+  <section class="operations-preview">
+
+    <div class="preview-heading">
+
+      <span class="section-eyebrow">
+        TEAM OPERATIONS
+      </span>
+
+      <h2>
+        Work & Settlement Tracking
+      </h2>
+
+      <p>
+        Every contract job will be tracked from customer payment
+        through materials and team settlement.
+      </p>
+
+    </div>
+
+
+    <div class="tracking-grid">
+
+      <!-- JOBS -->
+
+      <article>
+
+        <span class="tracking-number">
+          01
+        </span>
+
+        <div>
+
+          <h3>
+            Jobs
+          </h3>
+
+          <p>
+            Installation, service, repair and other assigned work.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- MATERIALS -->
+
+      <article>
+
+        <span class="tracking-number">
+          02
+        </span>
+
+        <div>
+
+          <h3>
+            Materials
+          </h3>
+
+          <p>
+            Track whether materials came from our center
+            or outside purchase.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- CUSTOMER AMOUNT -->
+
+      <article>
+
+        <span class="tracking-number">
+          03
+        </span>
+
+        <div>
+
+          <h3>
+            Customer Amount
+          </h3>
+
+          <p>
+            Record the amount collected from the customer
+            for each job.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <!-- SETTLEMENT -->
+
+      <article>
+
+        <span class="tracking-number">
+          04
+        </span>
+
+        <div>
+
+          <h3>
+            Team Settlement
+          </h3>
+
+          <p>
+            Calculate exactly what we owe the team
+            or what the team owes us.
+          </p>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+</section>

@@ -1,0 +1,42 @@
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  min-height: 40px;
+  padding: 0 13px;
+
+  border: 1px solid #d8e2ed;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #33445e;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.back-button:hover {
+  background: #f5f9fc;
+  border-color: #bfd0df;
+  transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(25, 50, 80, 0.08);
+}
+
+.back-button:active {
+  transform: translateX(0);
+}
+
+.back-icon {
+  font-size: 18px;
+  line-height: 1;
+}
