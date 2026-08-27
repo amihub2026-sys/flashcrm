@@ -1,0 +1,628 @@
+:host {
+  display: block;
+}
+
+app-back-button {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.contract-team-form-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 34px 32px 60px;
+  box-sizing: border-box;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.form-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: #078dcc;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.form-header h1 {
+  margin: 0;
+  color: #0d1830;
+  font-size: clamp(30px, 4vw, 44px);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+}
+
+.form-header p {
+  max-width: 700px;
+  margin: 10px 0 0;
+  color: #71829a;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* =========================
+   FORM CARD
+========================= */
+
+.contract-team-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-card {
+  padding: 26px 28px;
+  background: #ffffff;
+  border: 1px solid #dfe7f0;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(25, 50, 80, 0.035);
+}
+
+/* =========================
+   CARD HEADING
+========================= */
+
+.card-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.card-heading-with-action {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heading-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.card-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: #edf8fd;
+  color: #078dcc;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.card-heading h2 {
+  margin: 0;
+  color: #14223a;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.card-heading p {
+  margin: 5px 0 0;
+  color: #7a8ba2;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* =========================
+   FORM GRID
+========================= */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 19px 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.field-full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  margin-bottom: 7px;
+  color: #33445e;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field label span {
+  color: #e14c4c;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d8e2ed;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #1b2d47;
+  font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.field input,
+.field select {
+  height: 46px;
+  padding: 0 13px;
+}
+
+.field textarea {
+  min-height: 100px;
+  padding: 12px 13px;
+  resize: vertical;
+  line-height: 1.55;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #a0adbd;
+}
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover {
+  border-color: #c4d2e0;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #10a7df;
+  box-shadow: 0 0 0 3px rgba(16, 167, 223, 0.1);
+}
+
+.field input.ng-invalid.ng-touched,
+.field select.ng-invalid.ng-touched,
+.field textarea.ng-invalid.ng-touched {
+  border-color: #e15a5a;
+}
+
+.error {
+  margin-top: 6px;
+  color: #d64c4c;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* =========================
+   CHECKBOX
+========================= */
+
+.field-checkbox {
+  justify-content: flex-end;
+}
+
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  margin: 0 !important;
+  padding: 0 2px;
+  cursor: pointer;
+}
+
+.checkbox-label input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: #10a7df;
+  cursor: pointer;
+}
+
+.checkbox-label span {
+  color: #40526b !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-btn,
+.secondary-btn,
+.remove-btn {
+  border: 0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 20px;
+  background: #10a7df;
+  color: #ffffff;
+  box-shadow: 0 7px 18px rgba(16, 167, 223, 0.18);
+}
+
+.primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(16, 167, 223, 0.25);
+}
+
+.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 17px;
+  background: #ffffff;
+  border: 1px solid #d6e0eb;
+  color: #29405d;
+}
+
+.secondary-btn:hover {
+  background: #f5f9fc;
+  border-color: #c5d4e2;
+}
+
+.remove-btn {
+  min-height: 34px;
+  padding: 0 12px;
+  background: #fff3f3;
+  color: #d95353;
+  font-size: 12px;
+}
+
+.remove-btn:hover {
+  background: #ffe7e7;
+}
+
+/* =========================
+   MEMBERS
+========================= */
+
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.member-card {
+  padding: 20px;
+  background: #f9fbfd;
+  border: 1px solid #e0e8f0;
+  border-radius: 14px;
+}
+
+.member-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.member-number {
+  display: block;
+  margin-bottom: 4px;
+  color: #078dcc;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.member-header h3 {
+  margin: 0;
+  color: #1b2a42;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+/* =========================
+   FORM ACTIONS
+========================= */
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 4px 2px;
+}
+
+.form-actions .secondary-btn,
+.form-actions .primary-btn {
+  min-width: 150px;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 850px) {
+  .contract-team-form-page {
+    padding: 28px 22px 50px;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 650px) {
+  .contract-team-form-page {
+    padding: 22px 15px 40px;
+  }
+
+  .form-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-header .secondary-btn {
+    width: 100%;
+  }
+
+  .form-header h1 {
+    font-size: 30px;
+  }
+
+  .form-card {
+    padding: 21px 17px;
+    border-radius: 15px;
+  }
+
+  .card-heading-with-action {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .heading-left {
+    width: 100%;
+  }
+
+  .card-heading-with-action > .secondary-btn {
+    width: 100%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .field-full {
+    grid-column: auto;
+  }
+
+  .member-card {
+    padding: 17px;
+  }
+
+  .member-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .remove-btn {
+    align-self: flex-start;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding-top: 5px;
+  }
+
+  .form-actions .secondary-btn,
+  .form-actions .primary-btn {
+    width: 100%;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 400px) {
+  .contract-team-form-page {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .form-card {
+    padding: 18px 14px;
+  }
+
+  .card-heading h2 {
+    font-size: 17px;
+  }
+
+  .card-heading p {
+    font-size: 12px;
+  }
+}
+/* =========================================
+   KYC DOCUMENTS
+========================================= */
+
+.kyc-section {
+  margin-top: 8px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.kyc-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.kyc-heading > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.kyc-heading strong {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.kyc-heading span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.kyc-document-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.kyc-upload-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  padding: 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.kyc-upload-card:hover {
+  border-color: #38a9e8;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+  transform: translateY(-1px);
+}
+
+.kyc-upload-icon {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eaf7ff;
+  color: #0788cf;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.kyc-upload-content {
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kyc-upload-content strong {
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.kyc-upload-content > span {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.upload-btn {
+  width: fit-content;
+  margin-top: 7px;
+  padding: 7px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.upload-btn:hover {
+  background: #eef8ff;
+  border-color: #38a9e8;
+  color: #0788cf;
+}
+
+.upload-btn input[type="file"] {
+  display: none;
+}
+
+
+/* =========================================
+   KYC RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+  .kyc-document-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .kyc-section {
+    padding: 16px;
+  }
+
+  .kyc-upload-card {
+    padding: 13px;
+  }
+
+  .kyc-heading {
+    margin-bottom: 16px;
+  }
+}

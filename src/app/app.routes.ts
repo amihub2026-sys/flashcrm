@@ -105,7 +105,13 @@ export const routes: Routes = [
             m => m.TECHNICIANS_ROUTES
           )
       },
-
+{
+  path: 'contract-teams',
+  loadChildren: () =>
+    import('./features/contract-teams/contract-teams.routes').then(
+      m => m.CONTRACT_TEAMS_ROUTES
+    )
+},
       {
         path: 'job-scheduling',
         loadChildren: () =>

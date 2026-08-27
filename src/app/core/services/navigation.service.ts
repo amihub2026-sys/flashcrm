@@ -50,12 +50,18 @@ export class NavigationService {
       route: '/amc'
     },
 
-    {
-      label: 'Technicians',
-      icon: '♙',
-      route: '/technicians',
-      section: 'OPERATIONS'
-    },
+  {
+  label: 'Office Technicians',
+  icon: '♙',
+  route: '/technicians',
+  section: 'OPERATIONS'
+},
+
+{
+  label: 'Contract Teams',
+  icon: '♙',
+  route: '/contract-teams'
+},
 
     {
       label: 'Billing',
