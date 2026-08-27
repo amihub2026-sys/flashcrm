@@ -1,0 +1,1 @@
+var n=[{path:``,loadComponent:()=>import(`./chunk-CPjs_ClC2.js`).then(o=>o.CalendarComponent)}];export{n as CALENDAR_ROUTES};

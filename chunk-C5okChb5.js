@@ -1,1 +1,0 @@
-var n=[{path:``,loadComponent:()=>import(`./chunk-CTfKQKGx2.js`).then(o=>o.InventoryComponent)}];export{n as INVENTORY_ROUTES};

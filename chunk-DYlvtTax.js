@@ -1,1 +1,0 @@
-var t=[{path:``,loadComponent:()=>import(`./chunk-CDHFmxBK.js`).then(o=>o.InstallationsComponent)}];export{t as INSTALLATIONS_ROUTES};

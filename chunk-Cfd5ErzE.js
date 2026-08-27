@@ -1,0 +1,1 @@
+var n=[{path:``,loadComponent:()=>import(`./chunk-BCEv75zu2.js`).then(o=>o.CommunicationsComponent)}];export{n as COMMUNICATIONS_ROUTES};

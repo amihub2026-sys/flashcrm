@@ -1,0 +1,1 @@
+var e=[{path:``,loadComponent:()=>import(`./chunk-DZToCuQK.js`).then(o=>o.ServicesComponent)},{path:`new`,loadComponent:()=>import(`./chunk-2_n1cQBD.js`).then(o=>o.ServiceFormComponent)}];export{e as SERVICES_ROUTES};

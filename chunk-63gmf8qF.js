@@ -1,1 +1,0 @@
-var t=[{path:``,loadComponent:()=>import(`./chunk-DcM-ktjj2.js`).then(o=>o.ReportsComponent)}];export{t as REPORTS_ROUTES};

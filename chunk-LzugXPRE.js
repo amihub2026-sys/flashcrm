@@ -1,0 +1,1 @@
+var n=[{path:``,loadComponent:()=>import(`./chunk-DXrfhfeX.js`).then(o=>o.JobSchedulingComponent)}];export{n as JOB_SCHEDULING_ROUTES};

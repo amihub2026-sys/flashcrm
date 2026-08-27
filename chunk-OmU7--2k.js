@@ -1,1 +1,0 @@
-var n=[{path:``,loadComponent:()=>import(`./chunk-0KN0OJXO.js`).then(o=>o.CommunicationsComponent)}];export{n as COMMUNICATIONS_ROUTES};

@@ -1,0 +1,1 @@
+var t=[{path:``,loadComponent:()=>import(`./chunk-Bgpxs-iN2.js`).then(o=>o.PartsHistoryComponent)}];export{t as PARTS_HISTORY_ROUTES};

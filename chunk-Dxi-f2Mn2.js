@@ -1,0 +1,1 @@
+var n=[{path:``,loadComponent:()=>import(`./chunk-DAMHXJDN.js`).then(o=>o.BillingComponent)}];export{n as BILLING_ROUTES};

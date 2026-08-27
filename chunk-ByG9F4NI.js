@@ -1,0 +1,1 @@
+var t=[{path:``,loadComponent:()=>import(`./chunk-jf32sTA42.js`).then(o=>o.JobCardsComponent)}];export{t as JOB_CARDS_ROUTES};

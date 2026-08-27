@@ -1,1 +1,0 @@
-var t=[{path:``,loadComponent:()=>import(`./chunk-CAkaX33G.js`).then(o=>o.AmcComponent)}];export{t as AMC_ROUTES};

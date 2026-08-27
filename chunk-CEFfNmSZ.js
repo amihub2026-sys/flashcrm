@@ -1,1 +1,0 @@
-var t=[{path:``,loadComponent:()=>import(`./chunk-BuV74g85.js`).then(o=>o.JobCardsComponent)}];export{t as JOB_CARDS_ROUTES};

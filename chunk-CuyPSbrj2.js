@@ -1,0 +1,1 @@
+var t=[{path:``,loadComponent:()=>import(`./chunk-wN2jiQgt.js`).then(o=>o.EwcComponent)}];export{t as EWC_ROUTES};

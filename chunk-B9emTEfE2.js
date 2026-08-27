@@ -1,0 +1,1 @@
+var n=[{path:``,loadComponent:()=>import(`./chunk-DHgQLSa92.js`).then(o=>o.RemindersComponent)}];export{n as REMINDERS_ROUTES};

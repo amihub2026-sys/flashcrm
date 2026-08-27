@@ -1,0 +1,1 @@
+var o=[{path:``,loadComponent:()=>import(`./chunk-C9sHqTb02.js`).then(t=>t.ContractTeams)},{path:`new`,loadComponent:()=>import(`./chunk-BlA5X95S2.js`).then(t=>t.ContractTeamForm)},{path:`details/:id`,loadComponent:()=>import(`./chunk-WC63Feat.js`).then(t=>t.ContractTeamDetails)}];export{o as CONTRACT_TEAMS_ROUTES};

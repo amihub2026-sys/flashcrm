@@ -1,1 +1,0 @@
-var o=[{path:``,loadComponent:()=>import(`./chunk-Chl8jLEF.js`).then(n=>n.TechniciansComponent)}];export{o as TECHNICIANS_ROUTES};

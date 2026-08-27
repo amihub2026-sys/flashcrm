@@ -1,0 +1,1 @@
+var t=[{path:``,loadComponent:()=>import(`./chunk-p1sb8Du6.js`).then(o=>o.NotificationsComponent)},{path:`new`,loadComponent:()=>import(`./chunk-CYJiQaKj2.js`).then(o=>o.NotificationFormComponent)}];export{t as NOTIFICATIONS_ROUTES};
