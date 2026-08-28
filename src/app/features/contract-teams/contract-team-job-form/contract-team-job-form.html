@@ -1,0 +1,816 @@
+<section class="job-page">
+
+  <header class="page-header">
+
+    <div>
+      <a
+        class="back-link"
+        [routerLink]="['/contract-teams/details', teamId]"
+      >
+        ← Back to Contract Team
+      </a>
+
+      <span class="eyebrow">CONTRACT TEAM JOB</span>
+
+      <h1>Add Customer Service</h1>
+
+      <p>
+        Enter the customer, service, materials and payment details.
+      </p>
+    </div>
+
+  </header>
+
+
+  <form
+    [formGroup]="jobForm"
+    (ngSubmit)="saveJob()"
+    novalidate
+  >
+
+    <!-- ==========================================================
+         01 CUSTOMER & JOB
+    =========================================================== -->
+
+    <section class="simple-card customer-job-section">
+
+      <div class="section-title">
+        <span>01</span>
+        <div>
+          <small>CUSTOMER &amp; JOB</small>
+          <h2>Customer Details</h2>
+        </div>
+      </div>
+
+      <div class="calculation-table-wrap customer-job-table-wrap">
+        <table class="clean-table customer-job-table">
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Details</th>
+              <th>Field</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td><label for="customerName">Customer Name *</label></td>
+              <td>
+                <input class="table-input" id="customerName" type="text"
+                  formControlName="customerName" placeholder="Enter customer name">
+              </td>
+
+              <td><label for="customerPhone">Phone Number *</label></td>
+              <td>
+                <input class="table-input" id="customerPhone" type="tel"
+                  maxlength="10" formControlName="customerPhone"
+                  placeholder="10-digit mobile number">
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="customerAddress">Customer Address *</label></td>
+              <td>
+                <textarea class="table-input table-textarea" id="customerAddress"
+                  rows="2" formControlName="customerAddress"
+                  placeholder="Enter customer address"></textarea>
+              </td>
+
+              <td><label for="jobType">Job Type *</label></td>
+              <td>
+                <select class="table-select" id="jobType" formControlName="jobType" (change)="onJobTypeChange()">
+                  @for (type of jobTypeOptions; track type) {
+                    <option [value]="type">{{ type }}</option>
+                  }
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="serviceDate">Service Date *</label></td>
+              <td>
+                <input class="table-input" id="serviceDate" type="date"
+                  formControlName="serviceDate">
+              </td>
+
+              <td><label for="assignedMemberId">Team Member</label></td>
+              <td>
+                <select class="table-select" id="assignedMemberId"
+                  formControlName="assignedMemberId">
+                  <option value="">Select member</option>
+                  @for (member of members; track member.name) {
+                    <option [value]="member.name">{{ member.name }}</option>
+                  }
+                </select>
+              </td>
+            </tr>
+
+            <tr>
+              <td><label for="status">Status *</label></td>
+              <td>
+                <select class="table-select" id="status" formControlName="status">
+                  @for (status of jobStatusOptions; track status) {
+                    <option [value]="status">{{ status }}</option>
+                  }
+                </select>
+              </td>
+
+              <td><label for="serviceDescription">Service Description *</label></td>
+              <td>
+                <textarea class="table-input table-textarea" id="serviceDescription"
+                  rows="2" formControlName="serviceDescription"
+                  placeholder="Example: AC installation"></textarea>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================================
+         02 JOB CALCULATION
+    =========================================================== -->
+
+    <section class="simple-card job-calculation-section">
+
+      <div class="section-title">
+        <span>02</span>
+        <div>
+          <small>JOB CALCULATION</small>
+          <h2>{{ jobCalculationTitle }}</h2>
+          <p>{{ jobCalculationDescription }}</p>
+        </div>
+      </div>
+
+      @if (isInstallationJob) {
+        <div class="calculation-table-wrap">
+          <table class="clean-table">
+            <thead>
+              <tr>
+                <th>AC Quantity</th>
+                <th>Rate Per AC</th>
+                <th>Total Contract Team Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    class="table-input"
+                    id="acQuantity"
+                    type="number"
+                    min="1"
+                    step="1"
+                    formControlName="acQuantity"
+                  >
+                </td>
+                <td>
+                  <div class="table-money-input">
+                    <span>₹</span>
+                    <input
+                      id="ratePerAc"
+                      type="number"
+                      min="0"
+                      step="1"
+                      formControlName="ratePerAc"
+                    >
+                  </div>
+                </td>
+                <td class="total-cell">
+                  ₹{{ teamAmount }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="calculation-note">
+          Example: 1 AC × ₹1,000 = ₹1,000 installation fee.
+        </p>
+      } @else {
+        <div class="job-type-rate-box">
+          <div class="job-type-rate-content">
+            <span>CONTRACT / SERVICE FEE</span>
+            <strong>{{ jobType }} Fee</strong>
+            <small>Enter the amount applicable for this {{ jobType.toLowerCase() }} job.</small>
+          </div>
+
+          <div class="table-money-input job-type-rate-input">
+            <span>₹</span>
+            <input
+              id="teamAmount"
+              type="number"
+              min="0"
+              step="1"
+              formControlName="teamAmount"
+              placeholder="300"
+            >
+          </div>
+        </div>
+      }
+
+    </section>
+
+
+    <!-- ==========================================================
+         03 MATERIALS
+    =========================================================== -->
+
+    <section class="simple-card materials-section">
+
+      <div class="section-title">
+        <span>03</span>
+        <div>
+          <small>MATERIALS</small>
+          <h2>Materials Used</h2>
+          <p>Add each material separately. Record quantity, source, actual cost and customer payment.</p>
+        </div>
+      </div>
+
+      <!-- ADD MATERIAL -->
+      <div class="material-entry-table-wrap">
+        <table class="clean-table material-entry-table">
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Qty</th>
+              <th>Purchased / Taken From</th>
+              <th>Actual Shop Amount</th>
+              <th>Customer Paid</th>
+              <th>Balance</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                <select
+                  id="selectedMaterialId"
+                  class="table-select"
+                  [(ngModel)]="selectedMaterialId"
+                  [ngModelOptions]="{ standalone: true }"
+                  (ngModelChange)="onMaterialSelectionChange()"
+                >
+                  <option value="">Select material</option>
+
+                  @for (material of materials; track material.id) {
+                    <option [value]="material.id">
+                      {{ material.name }}
+                    </option>
+                  }
+
+                  <option value="__OTHER__">
+                    Other Material
+                  </option>
+                </select>
+
+                @if (selectedMaterial) {
+                  <small class="rate-hint">
+                    Master rate: ₹{{ selectedMaterialRate }} / {{ selectedMaterial.unit }}
+                  </small>
+                }
+
+                @if (isOtherMaterialSelected) {
+                  <div class="other-material-box">
+                    <label for="otherMaterialName">
+                      Material Name
+                    </label>
+
+                    <input
+                      id="otherMaterialName"
+                      class="table-input"
+                      type="text"
+                      [(ngModel)]="otherMaterialName"
+                      [ngModelOptions]="{ standalone: true }"
+                      placeholder="Example: White Tap"
+                      autocomplete="off"
+                    >
+
+                    @if (otherMaterialName.trim().length > 0 && filteredOtherMaterials.length > 0) {
+                      <div class="other-material-suggestions">
+                        <small>Previously used</small>
+
+                        @for (name of filteredOtherMaterials; track name) {
+                          <button
+                            type="button"
+                            class="other-material-suggestion"
+                            (click)="selectPreviousOtherMaterial(name)"
+                          >
+                            {{ name }}
+                          </button>
+                        }
+                      </div>
+                    }
+                  </div>
+                }
+              </td>
+
+              <td>
+                <input
+                  id="materialQuantity"
+                  class="table-input material-qty-input"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  [(ngModel)]="materialQuantity"
+                  [ngModelOptions]="{ standalone: true }"
+                  placeholder="3"
+                >
+              </td>
+
+              <td>
+                <select
+                  id="materialRowSource"
+                  class="table-select"
+                  [(ngModel)]="materialRowSource"
+                  [ngModelOptions]="{ standalone: true }"
+                >
+                  <option value="Office">Office</option>
+                  <option value="Outside">Outside</option>
+                  <option value="Customer">Customer</option>
+                </select>
+              </td>
+
+              <td>
+                @if (materialRowSource === 'Outside') {
+                  <div class="table-money-input">
+                    <span>₹</span>
+                    <input
+                      id="outsidePurchaseAmount"
+                      class="material-money-field"
+                      type="number"
+                      inputmode="numeric"
+                      min="0"
+                      step="1"
+                      [(ngModel)]="outsidePurchaseAmount"
+                      [ngModelOptions]="{ standalone: true }"
+                      placeholder="700"
+                    >
+                  </div>
+                } @else if (materialRowSource === 'Office') {
+                  <strong class="auto-amount">
+                    ₹{{ materialAmountPreview }}
+                  </strong>
+                  <small class="cell-note">Office stock · no cash purchase</small>
+                } @else {
+                  <strong class="auto-amount">₹0</strong>
+                  <small class="cell-note">Customer supplied</small>
+                }
+              </td>
+
+              <td>
+                <div class="table-money-input">
+                  <span>₹</span>
+                  <input
+                    id="materialCustomerPaid"
+                    class="material-money-field"
+                    type="number"
+                    inputmode="numeric"
+                    min="0"
+                    step="1"
+                    [(ngModel)]="materialCustomerPaid"
+                    [ngModelOptions]="{ standalone: true }"
+                    placeholder="1000"
+                  >
+                </div>
+              </td>
+
+              <td class="preview-balance-cell">
+                <strong>
+                  ₹{{ materialBalancePreview }}
+                </strong>
+                <small>
+                  Customer paid − actual cost
+                </small>
+              </td>
+
+              <td>
+                <button
+                  type="button"
+                  class="primary-btn material-add-btn"
+                  (click)="addMaterial()"
+                  [disabled]="
+                    (
+                      !selectedMaterialId ||
+                      (
+                        isOtherMaterialSelected &&
+                        !otherMaterialName.trim()
+                      )
+                    ) ||
+                    !materialQuantity ||
+                    materialQuantity <= 0 ||
+                    (
+                      materialRowSource === 'Outside' &&
+                      (
+                        !outsidePurchaseAmount ||
+                        outsidePurchaseAmount <= 0
+                      )
+                    )
+                  "
+                >
+                  + Add
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- MATERIAL LIST -->
+      @if (jobMaterials.length > 0) {
+
+        <div class="material-table-wrap">
+          <table class="clean-table material-table">
+            <thead>
+              <tr>
+                <th>Material</th>
+                <th>Qty</th>
+                <th>From</th>
+                <th>Actual Cost</th>
+                <th>Customer Paid</th>
+                <th>Balance</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (material of jobMaterials; track material.id) {
+                <tr>
+                  <td>
+                    <strong>{{ material.materialName }}</strong>
+                    <small>{{ material.unit }}</small>
+                  </td>
+
+                  <td>
+                    {{ material.quantity }}
+                  </td>
+
+                  <td>
+                    <span
+                      class="source-badge"
+                      [class.outside]="material.source === 'Outside'"
+                      [class.customer]="material.source === 'Customer'"
+                    >
+                      {{ material.source }}
+                    </span>
+                  </td>
+
+                  <td class="amount-cell">
+                    ₹{{ material.amount }}
+                  </td>
+
+                  <td class="amount-cell customer-paid-cell">
+                    ₹{{ material.customerPaid }}
+                  </td>
+
+                  <td class="amount-cell balance-cell">
+                    ₹{{ material.balance }}
+                  </td>
+
+                  <td>
+                    <button
+                      type="button"
+                      class="delete-btn"
+                      (click)="removeMaterial(material.id)"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="material-summary material-summary-table">
+          <div>
+            <span>Office Cost</span>
+            <strong>₹{{ calculatedOfficeMaterialCost }}</strong>
+          </div>
+
+          <div>
+            <span>Outside Cost</span>
+            <strong>₹{{ calculatedOutsideMaterialCost }}</strong>
+          </div>
+
+          <div>
+            <span>Customer Supplied</span>
+            <strong>₹{{ calculatedCustomerMaterialCost }}</strong>
+          </div>
+
+          <div class="material-total">
+            <span>Total Actual Material Cost</span>
+            <strong>₹{{ totalMaterialCost }}</strong>
+          </div>
+        </div>
+
+      } @else {
+        <div class="empty-table">
+          No materials added yet.
+        </div>
+      }
+
+    </section>
+
+
+    <!-- ==========================================================
+         04 PAYMENT TALLY
+    =========================================================== -->
+
+    <section class="simple-card payment-tally-section">
+
+      <div class="section-title payment-tally-heading">
+        <span>04</span>
+        <div>
+          <small>{{ jobType.toUpperCase() }} PAYMENT</small>
+          <h2>Payment Tally</h2>
+          <p>{{ paymentTallyDescription }}</p>
+        </div>
+      </div>
+
+      <div class="payment-tally-table-wrap">
+        <table class="clean-table payment-tally-table-dynamic">
+          <thead>
+            <tr>
+              <th>Money Calculation</th>
+              <th>Amount</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            @if (isInstallationJob) {
+              <tr>
+                <td>
+                  <strong>Installation Fee</strong>
+                  <small>Contract team / installation amount</small>
+                </td>
+                <td>
+                  <div class="tally-input-wrap installation-fee-input">
+                    <span class="currency-symbol">₹</span>
+                    <input
+                      id="customerAmount"
+                      class="payment-amount-input"
+                      type="number"
+                      min="0"
+                      step="1"
+                      inputmode="numeric"
+                      formControlName="customerAmount"
+                      placeholder="Enter installation fee"
+                      autocomplete="off"
+                    >
+                  </div>
+                </td>
+                <td>Amount charged for the installation job.</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Customer Amount Collected</strong>
+                  <small>Money actually received</small>
+                </td>
+                <td>
+                  <div class="tally-input-wrap">
+                    <span>₹</span>
+                    <input
+                      id="customerAmountCollected"
+                      type="number"
+                      min="0"
+                      step="1"
+                      inputmode="numeric"
+                      formControlName="customerAmountCollected"
+                      placeholder="1000"
+                    >
+                  </div>
+                </td>
+                <td>Enter the amount the customer has paid.</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Material Balance With Technician</strong>
+                  <small>Amount already held by technician</small>
+                </td>
+                <td>
+                  <div class="tally-input-wrap">
+                    <span>₹</span>
+                    <input
+                      id="technicianHeldAmount"
+                      type="number"
+                      min="0"
+                      step="1"
+                      inputmode="numeric"
+                      formControlName="technicianHeldAmount"
+                      placeholder="700"
+                    >
+                  </div>
+                </td>
+                <td>Example: ₹1,000 collected − ₹700 with technician.</td>
+              </tr>
+
+              <tr class="tally-result-row">
+                <td>
+                  <strong>Amount With Center</strong>
+                  <small>Customer collected − technician-held amount</small>
+                </td>
+                <td>
+                  <strong class="tally-final-amount">₹{{ centerAmount }}</strong>
+                </td>
+                <td>Final center amount. Example: ₹1,000 − ₹700 = ₹300.</td>
+              </tr>
+
+              <tr class="tally-pending-row">
+                <td>
+                  <strong>Customer Pending</strong>
+                  <small>Amount still to collect</small>
+                </td>
+                <td>
+                  <strong>₹{{ customerPendingAmount }}</strong>
+                </td>
+                <td>Installation fee − customer amount collected.</td>
+              </tr>
+            } @else if (isWarrantyJob) {
+              <tr>
+                <td>
+                  <strong>Warranty Service Fee</strong>
+                  <small>Service value for warranty work</small>
+                </td>
+                <td>
+                  <div class="tally-input-wrap">
+                    <span>₹</span>
+                    <input
+                      id="customerAmount"
+                      type="number"
+                      min="0"
+                      step="1"
+                      inputmode="numeric"
+                      formControlName="customerAmount"
+                      placeholder="300"
+                    >
+                  </div>
+                </td>
+                <td>Service amount to be accounted for.</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>From Customer</strong>
+                  <small>Warranty customer payment</small>
+                </td>
+                <td>
+                  <div class="tally-input-wrap">
+                    <span>₹</span>
+                    <input
+                      id="customerAmountCollected"
+                      type="number"
+                      min="0"
+                      step="1"
+                      inputmode="numeric"
+                      formControlName="customerAmountCollected"
+                      placeholder="0"
+                    >
+                  </div>
+                </td>
+                <td>Normally ₹0 for a warranty customer.</td>
+              </tr>
+
+              <tr class="tally-result-row warranty-result-row">
+                <td>
+                  <strong>Amount To Account</strong>
+                  <small>Service fee − amount from customer</small>
+                </td>
+                <td>
+                  <strong class="tally-final-amount">₹{{ warrantyAccountAmount }}</strong>
+                </td>
+                <td>Example: ₹300 − ₹0 = ₹300.</td>
+              </tr>
+            } @else {
+              <tr>
+                <td>
+                  <strong>Service Fee</strong>
+                  <small>{{ jobType }} service amount</small>
+                </td>
+                <td>
+                  <div class="tally-input-wrap">
+                    <span>₹</span>
+                    <input
+                      id="customerAmount"
+                      type="number"
+                      min="0"
+                      step="1"
+                      inputmode="numeric"
+                      formControlName="customerAmount"
+                      placeholder="300"
+                    >
+                  </div>
+                </td>
+                <td>Amount charged for the customer service.</td>
+              </tr>
+
+              <tr>
+                <td>
+                  <strong>Customer Paid</strong>
+                  <small>Money actually received</small>
+                </td>
+                <td>
+                  <div class="tally-input-wrap">
+                    <span>₹</span>
+                    <input
+                      id="customerAmountCollected"
+                      type="number"
+                      min="0"
+                      step="1"
+                      inputmode="numeric"
+                      formControlName="customerAmountCollected"
+                      placeholder="300"
+                    >
+                  </div>
+                </td>
+                <td>Enter what the customer actually paid.</td>
+              </tr>
+
+              <tr class="tally-result-row">
+                <td>
+                  <strong>Balance</strong>
+                  <small>Service fee − customer paid</small>
+                </td>
+                <td>
+                  <strong class="tally-final-amount">₹{{ customerPendingAmount }}</strong>
+                </td>
+                <td>Example: ₹300 − ₹300 = ₹0.</td>
+              </tr>
+            }
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="payment-formula-box">
+        @if (isInstallationJob) {
+          <span>INSTALLATION TALLY</span>
+          <strong>₹{{ customerAmountCollectedValue }} − ₹{{ technicianHeldAmount }} = ₹{{ centerAmount }}</strong>
+        } @else if (isWarrantyJob) {
+          <span>WARRANTY TALLY</span>
+          <strong>₹{{ customerAmountValue }} − ₹{{ customerAmountCollectedValue }} = ₹{{ warrantyAccountAmount }}</strong>
+        } @else {
+          <span>SERVICE TALLY</span>
+          <strong>₹{{ customerAmountValue }} − ₹{{ customerAmountCollectedValue }} = ₹{{ customerPendingAmount }}</strong>
+        }
+      </div>
+
+    </section>
+
+
+    <!-- ==========================================================
+         NOTES
+    =========================================================== -->
+
+    <section class="simple-card">
+
+      <div class="field">
+
+        <label for="notes">
+          Notes
+        </label>
+
+        <textarea
+          id="notes"
+          rows="3"
+          formControlName="notes"
+          placeholder="Any additional notes..."
+        ></textarea>
+
+      </div>
+
+    </section>
+
+
+    <!-- ACTIONS -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="secondary-btn"
+        (click)="cancel()"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="submit"
+        class="primary-btn"
+        [disabled]="jobForm.invalid"
+      >
+        ✓ Save Job
+      </button>
+
+    </div>
+
+  </form>
+  </section>

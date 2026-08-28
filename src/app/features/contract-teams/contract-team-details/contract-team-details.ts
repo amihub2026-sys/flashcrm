@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 
 import {
   ActivatedRoute,
+  Router,
   RouterLink
 } from '@angular/router';
 
@@ -59,6 +60,7 @@ export class ContractTeamDetails
 
   constructor(
     private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly store: ContractTeamStore
   ) {}
 
@@ -315,6 +317,26 @@ export class ContractTeamDetails
         /\s+/g,
         '-'
       );
+  }
+
+
+  // ============================================================
+  // ADD JOB
+  // ============================================================
+
+  addJob(): void {
+
+    if (!this.team?.id) {
+      return;
+    }
+
+
+    this.router.navigate([
+      '/contract-teams/details',
+      this.team.id,
+      'job',
+      'new'
+    ]);
   }
 
 }

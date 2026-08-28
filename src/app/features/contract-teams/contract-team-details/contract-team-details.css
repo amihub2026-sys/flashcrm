@@ -955,3 +955,130 @@
     padding: 17px;
   }
 }
+
+
+/* =========================================================
+   OPERATIONS HEADER + ADD JOB
+========================================================= */
+
+.operations-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.operations-header > div {
+  min-width: 0;
+}
+
+.operations-header .section-eyebrow {
+  margin-bottom: 7px;
+}
+
+.operations-header h2 {
+  margin: 0;
+  color: #101b32;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.operations-header p {
+  margin: 7px 0 0;
+  color: #74869e;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.operations-header .primary-btn {
+  flex: 0 0 auto;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 17px;
+}
+
+.operations-header .primary-btn span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.operations-card > .operations-header + .operations-grid {
+  margin-top: 0;
+}
+
+@media (max-width: 700px) {
+
+  .operations-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .operations-header .primary-btn {
+    width: 100%;
+  }
+
+}
+.job-action-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin: 24px 0;
+
+  padding: 24px 28px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 18px;
+
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+
+.job-action-content {
+  min-width: 0;
+}
+
+.job-action-content h2 {
+  margin: 6px 0 5px;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  color: #101828;
+}
+
+.job-action-content p {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  color: #667085;
+}
+
+.add-job-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+
+  .job-action-card {
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 20px;
+  }
+
+  .add-job-btn {
+    width: 100%;
+  }
+
+}

@@ -779,7 +779,9 @@
 
     <section class="operations-card">
 
-      <div>
+      <div class="operations-header">
+
+        <div>
 
         <span class="section-eyebrow">
           TEAM OPERATIONS
@@ -793,6 +795,16 @@
           Job assignment, customer collection, materials and
           settlement tracking will be connected here.
         </p>
+
+        </div>
+
+        <a
+          class="primary-btn"
+          [routerLink]="['/contract-teams/details', team.id, 'job', 'new']"
+        >
+          <span>+</span>
+          Add Job
+        </a>
 
       </div>
 

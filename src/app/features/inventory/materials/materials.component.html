@@ -1,0 +1,403 @@
+<section class="materials-page">
+
+  <!-- BACK BUTTON -->
+
+  <a
+    routerLink="/inventory"
+    class="back-button"
+  >
+    ← Back to Inventory
+  </a>
+
+
+  <!-- PAGE HEADER -->
+
+  <div class="page-header">
+
+    <div>
+
+      <span class="eyebrow">
+        INVENTORY
+      </span>
+
+      <h1>
+        Materials & Fixed Rates
+      </h1>
+
+      <p>
+        Manage the materials and standard rates used for customer services.
+      </p>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="add-button"
+      (click)="openAddForm()"
+    >
+      + Add Material
+    </button>
+
+  </div>
+
+
+  <!-- ADD / EDIT MATERIAL FORM -->
+
+  @if (showAddForm) {
+
+    <div class="form-card">
+
+      <div class="form-title">
+
+        <div>
+
+          <span class="form-eyebrow">
+            {{ isEditMode ? 'EDIT MATERIAL' : 'NEW MATERIAL' }}
+          </span>
+
+          <h2>
+            {{ isEditMode ? 'Edit Material' : 'Add Material' }}
+          </h2>
+
+          <p>
+            Set the standard rate that will be used in service calculations.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <!-- MATERIAL NAME -->
+
+        <div class="field">
+
+          <label>
+            Material Name
+          </label>
+
+          <input
+            type="text"
+            [(ngModel)]="materialName"
+            placeholder="Example: Copper Pipe"
+          />
+
+        </div>
+
+
+        <!-- UNIT -->
+
+        <div class="field">
+
+          <label>
+            Unit
+          </label>
+
+          <input
+            type="text"
+            [(ngModel)]="materialUnit"
+            placeholder="Example: Meter"
+          />
+
+        </div>
+
+
+        <!-- FIXED RATE -->
+
+        <div class="field">
+
+          <label>
+            Fixed Rate
+          </label>
+
+          <div class="rate-input">
+
+            <span>
+              ₹
+            </span>
+
+            <input
+              type="number"
+              [(ngModel)]="materialRate"
+              placeholder="300"
+              min="0"
+            />
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- FORM ACTIONS -->
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancelForm()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          class="save-button"
+          (click)="saveMaterial()"
+        >
+          {{ isEditMode ? 'Update Material' : 'Save Material' }}
+        </button>
+
+      </div>
+
+    </div>
+
+  }
+
+
+  <!-- MATERIAL LIST -->
+
+  <div class="table-card">
+
+    <div class="table-header">
+
+      <div>
+
+        <span class="table-eyebrow">
+          PRICE LIST
+        </span>
+
+        <h2>
+          Material List
+        </h2>
+
+        <p>
+          Fixed rates available for customer service calculations.
+        </p>
+
+      </div>
+
+
+      <span class="count">
+
+        {{ materials.length }}
+
+        {{ materials.length === 1 ? 'Material' : 'Materials' }}
+
+      </span>
+
+    </div>
+
+
+    <!-- EMPTY STATE -->
+
+    @if (materials.length === 0) {
+
+      <div class="empty-state">
+
+        <div class="empty-icon">
+          ◫
+        </div>
+
+        <h3>
+          No materials added yet
+        </h3>
+
+        <p>
+          Add your first material with its fixed rate.
+        </p>
+
+        <button
+          type="button"
+          class="add-button"
+          (click)="openAddForm()"
+        >
+          + Add Material
+        </button>
+
+      </div>
+
+    }
+
+
+    <!-- MATERIAL TABLE -->
+
+    @else {
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Material
+              </th>
+
+              <th>
+                Unit
+              </th>
+
+              <th>
+                Fixed Rate
+              </th>
+
+              <th>
+                Status
+              </th>
+
+              <th>
+                Actions
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            @for (
+              material of materials;
+              track material.id
+            ) {
+
+              <tr>
+
+                <td>
+
+                  <strong>
+                    {{ material.name }}
+                  </strong>
+
+                </td>
+
+
+                <td>
+                  {{ material.unit }}
+                </td>
+
+
+                <td>
+
+                  <strong class="rate">
+                    ₹{{ material.rate }}
+                  </strong>
+
+                </td>
+
+
+                <td>
+
+                  <span class="status">
+                    Active
+                  </span>
+
+                </td>
+
+
+                <!-- ACTIONS -->
+
+                <td>
+
+                  <div class="actions">
+
+                    <button
+                      type="button"
+                      class="edit-button"
+                      (click)="editMaterial(material)"
+                    >
+                      ✏ Edit
+                    </button>
+
+
+                    <button
+                      type="button"
+                      class="delete-button"
+                      (click)="confirmDelete(material)"
+                    >
+                      🗑 Delete
+                    </button>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    }
+
+  </div>
+
+
+  <!-- DELETE CONFIRMATION -->
+
+  @if (showDeleteConfirm && materialToDelete) {
+
+    <div class="modal-backdrop">
+
+      <div class="delete-modal">
+
+        <div class="delete-icon">
+          !
+        </div>
+
+        <h2>
+          Delete Material?
+        </h2>
+
+        <p>
+          Are you sure you want to deactivate
+          <strong>
+            {{ materialToDelete.name }}
+          </strong>?
+        </p>
+
+        <small>
+          This material will no longer appear in new service calculations.
+          Existing records will remain safe.
+        </small>
+
+
+        <div class="delete-actions">
+
+          <button
+            type="button"
+            class="cancel-button"
+            (click)="closeDeleteConfirmation()"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            class="delete-confirm-button"
+            (click)="deleteMaterial()"
+          >
+            Delete Material
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</section>

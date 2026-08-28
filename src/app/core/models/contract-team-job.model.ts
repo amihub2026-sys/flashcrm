@@ -2,6 +2,7 @@ export type ContractTeamJobType =
   | 'Installation'
   | 'Service'
   | 'Repair'
+  | 'Warranty'
   | 'Other';
 
 export type ContractTeamJobStatus =
@@ -12,17 +13,29 @@ export type ContractTeamJobStatus =
   | 'Cancelled';
 
 export type ContractTeamMaterialSource =
-  | 'Our Center'
-  | 'Outside Purchase'
-  | 'Both'
-  | 'None';
+  | 'Office'
+  | 'Outside'
+  | 'Customer'
+  | 'None'
+  | 'Mixed';
 
+export interface ContractTeamJobMaterial {
+  id: string;
+  materialId?: string;
+  materialName: string;
+  unit: string;
+  quantity: number;
+  source: 'Office' | 'Outside' | 'Customer';
+  fixedRate: number;
+  outsidePurchaseAmount: number;
+  customerPaid: number;
+  amount: number;
+  balance: number;
+}
 
 export interface ContractTeamJob {
   id: string;
-
   teamId: string;
-
   customerId?: string;
 
   customerName: string;
@@ -31,59 +44,38 @@ export interface ContractTeamJob {
 
   jobType: ContractTeamJobType;
   serviceDescription: string;
-
   serviceDate: string;
-
   assignedMemberId?: string;
   assignedMemberName?: string;
-
   status: ContractTeamJobStatus;
 
-
-  // ============================================================
-  // CUSTOMER PAYMENT
-  // ============================================================
+  acQuantity: number;
+  ratePerAc: number;
+  totalInstallationAmount: number;
 
   customerAmount: number;
   customerAmountCollected: number;
-
-
-  // ============================================================
-  // MATERIALS
-  // ============================================================
+  customerPendingAmount: number;
 
   materialSource: ContractTeamMaterialSource;
+  materials: ContractTeamJobMaterial[];
 
-  ourMaterialCost: number;
+  officeMaterialCost: number;
   outsideMaterialCost: number;
-
+  customerMaterialCost: number;
   totalMaterialCost: number;
 
-
-  // ============================================================
-  // CONTRACT TEAM SETTLEMENT
-  // ============================================================
+  technicianHeldAmount: number;
+  centerAmount: number;
 
   teamAmount: number;
   teamAmountPaid: number;
-
   pendingTeamSettlement: number;
-
-
-  // ============================================================
-  // FINANCIAL RESULT
-  // ============================================================
 
   totalCost: number;
   balanceAmount: number;
 
-
-  // ============================================================
-  // NOTES
-  // ============================================================
-
   notes: string;
-
   createdAt: string;
   updatedAt: string;
 }
